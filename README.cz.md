@@ -1,5 +1,5 @@
 # IR False color
-https://github.com/almaavu/ir_false_color
+https://github.com/almaavu/falsevisir
 
 **Program pro automatické vytvoření obrazu ve falešných barvách spojením snímků ve viditelném a infračerveném světle.**
 
