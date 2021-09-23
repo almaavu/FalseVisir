@@ -60,8 +60,8 @@ CFG = dict(
     preprocess_images = {
         # 'equalize' : True, # same speed, same results?
         'equalize' : False,
-        # 'normalize' : True, # same speed, same results?
-        'normalize' : False, 
+        'normalize' : True, # same speed, same results?
+        # 'normalize' : False, 
         # 'edge' : True,  # faster
         'edge' : False,  # better results? 
         },
@@ -370,7 +370,7 @@ def extract(images, method="ORB", **kw):
 
 if __name__ == "__main__":
 
-    SAVE = False
+    SAVE = True
     # LOGLEVEL = logging.DEBUG
     LOGLEVEL = logging.INFO
     SAMPLES = ("samples/vis_image.jpg", "samples/ir_image.jpg")
@@ -409,7 +409,7 @@ if __name__ == "__main__":
 
 #%% Save results
     if SAVE:
-        dst_dir = vi_path[0].parent / f"false_color_images"
+        dst_dir = vi_path.parent / f"false_color_images"
         dst_dir.mkdir(exist_ok=True)
 
         # Warped images
