@@ -3,7 +3,7 @@ https://github.com/almaavu/falsevisir
 
 **Combine infrared and visible light images of the same object to false colors automatically.**
 
-###Input: 
+### Input: 
 file paths of visible light image (RGB) and infrared image (RGB or grey)
 
 
