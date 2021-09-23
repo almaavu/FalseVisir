@@ -14,6 +14,9 @@ https://github.com/almaavu/falsevisir
 
 ### Použití:
     python -m falsevisir vis_soubor.jpg ir_soubor.jpg  
+    
+Skript je možné spustit i bez instalace:
+    python falsevisir.py vis_soubor.jpg ir_soubor.jpg 
 
 ### Vstupní data:
 Cesta a název souboru snímku ve viditelném světla (formát RGB) a infračerveného snímku (formát RGB nebo stupně šedé)
