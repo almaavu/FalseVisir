@@ -29,12 +29,14 @@ https://chsopensource.org/infrared-false-color-photography-irfc/
 https://en.wikipedia.org/wiki/Affine_transformation
 
 
-Example:
+## Example:
 
-
+### Source images:
 <p align="center">
   <img src="samples/vis_image.jpg" width="150" title="Source images">
   <img src="samples/ir_image.jpg" width="150" alt="">
 </p>
+
+### Results:
 
 
