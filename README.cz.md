@@ -3,26 +3,25 @@ https://github.com/almaavu/ir_false_color
 
 *Program pro automatické vytvoření obrazu ve falešných barvách spojením snímků ve viditelném a infračerveném světle.*
 
-###  Použití:
+### Použití:
     python ir_false_color.py vis_soubor.jpg ir_soubor.jpg  
 
-Vstupní data: 
+## Vstupní data:
 Cesta a název souboru snímku ve viditelném světla (formát RGB) a infračerveného snímku (formát RGB nebo stupně šedé)
 
-###  Postup:
+### Postup:
 - Změna velikosti obrázků na stejnou výšku
 - Transformace snímků pro přesné překrytí (obrázky musí mít podobné rysy, jinak  může selhat)
 - Spojení obrazů do falešných barev - výsledný RGB snímek obsahuje R kanál z IR snímku,
      G kanál z VIS-R a B kanál z VIS-G (VIS-B je vyřazen)
 - Prolnutí obrazů (50% IR, 50% VIS)
 
-###  Výstup:
+### Výstup:
 - Snímek ve falešných barvách
 - Snímek s překrytými snímky v IR a VIS světle (50 % IR + 50 % VIS)
 - Transformované snímky v IR a VIS světle (se snímky lze dále pracovat, např. pro vytvoření prolnutí s jinými parametry)
 
-
-###   Odkazy:
+### Odkazy:
 
 https://en.wikipedia.org/wiki/False_color
 
@@ -39,7 +38,8 @@ https://en.wikipedia.org/wiki/Affine_transformation
   <img src="samples/ir_image.jpg" width="150" alt="">
 </p>
 
-### Výsledek - obraz ve falešných barvách:
+### Výsledek:
+Obraz ve falešných barvách
 <p align="center">
   <img src="samples/false_color_images/ir_image_vis_image_falsecolor.png" width="150">
 </p>
