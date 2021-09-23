@@ -8,4 +8,5 @@ read -p "Commit description: " desc
 git add .
 git commit -m "$desc" && \
 #git rm -r --cached .
-git push origin main
+git push -u origin master
+
