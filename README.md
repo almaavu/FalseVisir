@@ -1,30 +1,38 @@
-# IR False color
+# falsevisir
 https://github.com/almaavu/falsevisir
 
-Combine infrared and visible light images of the same object to false colors automatically.
+**Combine infrared and visible light images of the same object to false colors automatically.**
 
-Input: file paths of visible light image (RGB) and infrared image (RGB or grey)
+###Input: 
+file paths of visible light image (RGB) and infrared image (RGB or grey)
 
-Process:
+
+
+### Process:
 - resize images to same height
 - warp images to fit when overlayed (images must have similar features, otherwise it may fail)
 - combine images to false colors - R channel from IR image, 
     G channel from VIS-R and B channel from VIS-G (VIS-B is discarded)
 - blend images (50 % IR, 50 % VIS)
 
-Output:
+
+
+
+### Output:
 - False color image
 - Blend image
 - VIS image resized and warped
 - IR image resized and warped
 
 
-TODO:
+
+
+### TODO:
 - remove first resize step? 
 
 
 
-resources:
+### resources:
 
 https://en.wikipedia.org/wiki/False_color
 

@@ -7,9 +7,9 @@ import sys
 
     
 setup(
-    name='ir_false_color',
+    name='falsevisir',
     version='1.0.0',
-    url='https://github.com/almaavu/ir_false_color/',
+    url='https://github.com/almaavu/falsevisir/',
     author='ffsedd',
     author_email='ffsedd@gmail.com',
     description='Combine IR and VIS image to FALSE COLOR',
