@@ -24,8 +24,11 @@ TODO:
 
 
 resources:
+
 https://en.wikipedia.org/wiki/False_color
-https://chsopensource.org/infrared-false-color-photography-irfc/    
+
+https://chsopensource.org/infrared-false-color-photography-irfc/
+
 https://en.wikipedia.org/wiki/Affine_transformation
 
 
@@ -33,10 +36,11 @@ https://en.wikipedia.org/wiki/Affine_transformation
 
 ### Source images:
 <p align="center">
-  <img src="samples/vis_image.jpg" width="150" title="Source images">
+  <img src="samples/vis_image.jpg" width="150" title="">
   <img src="samples/ir_image.jpg" width="150" alt="">
 </p>
 
-### Results:
-
-
+### Result:
+<p align="center">
+  <img src="samples/false_color_images/ir_image_vis_image_falsecolor.png" width="150">
+</p>
