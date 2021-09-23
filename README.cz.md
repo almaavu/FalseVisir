@@ -5,9 +5,11 @@ https://github.com/almaavu/ir_false_color
 
 ### Instalace:
 - instalace programovacího jazyka Python3
+
     https://www.python.org/downloads/
     
 - instalace programu ir_false_color
+
     pip install git+https://github.com/almaavu/ir_false_color.git
 
 ### Použití:
