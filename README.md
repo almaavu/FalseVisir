@@ -27,3 +27,10 @@ resources:
 https://en.wikipedia.org/wiki/False_color
 https://chsopensource.org/infrared-false-color-photography-irfc/    
 https://en.wikipedia.org/wiki/Affine_transformation
+
+
+Example:
+
+![VIS image](samples/vis_image.jpg)
+![IR image](samples/ir_image.jpg)
+
