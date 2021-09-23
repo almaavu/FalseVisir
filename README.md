@@ -33,8 +33,8 @@ Example:
 
 
 <p align="center">
-  <img src="samples/vis_image.jpg" width="50" title="Source images">
-  <img src="samples/ir_image.jpg" width="50" alt="">
+  <img src="samples/vis_image.jpg" width="150" title="Source images">
+  <img src="samples/ir_image.jpg" width="150" alt="">
 </p>
 
 
