@@ -6,7 +6,7 @@ https://github.com/almaavu/ir_false_color
 ### Použití:
     python ir_false_color.py vis_soubor.jpg ir_soubor.jpg  
 
-## Vstupní data:
+### Vstupní data:
 Cesta a název souboru snímku ve viditelném světla (formát RGB) a infračerveného snímku (formát RGB nebo stupně šedé)
 
 ### Postup:
