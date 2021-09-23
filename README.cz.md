@@ -16,6 +16,7 @@ https://github.com/almaavu/falsevisir
     python -m falsevisir vis_soubor.jpg ir_soubor.jpg  
     
 Skript je možné spustit i bez instalace:
+
     python falsevisir.py vis_soubor.jpg ir_soubor.jpg 
 
 ### Vstupní data:
