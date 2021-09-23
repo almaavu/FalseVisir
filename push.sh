@@ -3,8 +3,13 @@
 
 #git rm -r --cached .
 
+
 desc=minor edit
 #read -p "Commit description: " desc
+
+
+#read -p "Commit description: " desc
+
 
 git add .
 git commit -m "$desc"
