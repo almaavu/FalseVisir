@@ -1,5 +1,5 @@
 # IR False color
-https://github.com/almaavu/ir_false_color
+https://github.com/almaavu/falsevisir
 
 Combine infrared and visible light images of the same object to false colors automatically.
 
