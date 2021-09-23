@@ -62,8 +62,8 @@ CFG = dict(
         'equalize' : False,
         # 'normalize' : True, # same speed, same results?
         'normalize' : False, 
-        'edge' : True,  # faster
-        # 'edge' : False,  # better results? 
+        # 'edge' : True,  # faster
+        'edge' : False,  # better results? 
         },
     model_robust_param_limits = [  # detect excessive transformation
                                     [    [-10,-1,-100],
@@ -242,7 +242,7 @@ def preprocess_images(images):
         logging.debug("apply edge filter....")
         images_gray = [feature.canny(im, sigma=2, low_threshold=.05, high_threshold=.1) for im in images_gray]
     
-    if LOGLEVEL < 20:
+    if LOGLEVEL == logging.DEBUG:
         show_images(images_gray, labels=["downsized VIS","downsized IR"])
     
     return images_gray
@@ -261,18 +261,18 @@ def warp_images(vis, irr, show=False, **kw):
     orig_height = images[0].shape[0]
     images_small = resize_images(images, new_height=CFG['downsize'])
     downsize_scale = CFG['downsize'] / orig_height
-
+    logging.debug("preprocess images...")
     images_gray = preprocess_images(images_small)
 
     logging.debug("find_keypoints...")
     keypoints, descriptors = extract(images_gray, **CFG)
     logging.debug(f"{len(keypoints[0]), len(keypoints[1])}")
 
-    logging.debug("find_matches...")
+    logging.info("find_matches...")
     matches = feature.match_descriptors(*descriptors, cross_check=True, max_distance=CFG["max_distance"])  # slow
     logging.debug(f"found: {len(matches)} matches")
 
-    if show:
+    if LOGLEVEL == logging.DEBUG:
         show_matches(images_gray, keypoints, matches, "all matches")
         logging.debug(keypoints)
         logging.debug(matches)
@@ -292,7 +292,7 @@ def warp_images(vis, irr, show=False, **kw):
     if not transformation_valid(model_robust):
         raise ValueError("Transformation failed, not enough similar features?")
         
-    if show:
+    if LOGLEVEL == logging.DEBUG:
         show_matches(images_gray, keypoints, matches[inliers], "good matches")
 #    logging.debug(model_robust)
 
@@ -371,7 +371,8 @@ def extract(images, method="ORB", **kw):
 if __name__ == "__main__":
 
     SAVE = False
-    LOGLEVEL = 10
+    # LOGLEVEL = logging.DEBUG
+    LOGLEVEL = logging.INFO
     SAMPLES = ("samples/vis_image.jpg", "samples/ir_image.jpg")
 
     logging.basicConfig(
