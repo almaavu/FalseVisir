@@ -1,7 +1,7 @@
 # IR False color
 https://github.com/almaavu/ir_false_color
 
-Program pro automatické vytvoření obrazu ve falešných barvách spojení snímku ve viditelném a infračerveném světle.
+*Program pro automatické vytvoření obrazu ve falešných barvách spojením snímků ve viditelném a infračerveném světle.*
 
 ###  Použití:
     python ir_false_color.py vis_soubor.jpg ir_soubor.jpg  
