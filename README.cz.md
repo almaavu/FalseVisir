@@ -10,8 +10,7 @@ Instalace programovacího jazyka Python3
     
 Instalace programu falsevisir
 
-
-    pip install git+https://github.com/almaavu/falsevisir.git
+    python -m pip install git+https://github.com/almaavu/falsevisir.git
 
 ### Použití:
 
