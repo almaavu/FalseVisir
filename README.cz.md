@@ -4,15 +4,17 @@ https://github.com/almaavu/falsevisir
 **Program pro automatické vytvoření obrazu ve falešných barvách spojením snímků ve viditelném a infračerveném světle.**
 
 ### Instalace:
-- instalace programovacího jazyka Python3
+Instalace programovacího jazyka Python3
 
     https://www.python.org/downloads/
     
-- instalace programu falsevisir
+Instalace programu falsevisir
+
 
     pip install git+https://github.com/almaavu/falsevisir.git
 
 ### Použití:
+
     python -m falsevisir vis_soubor.jpg ir_soubor.jpg  
     
 Skript je možné spustit i bez instalace:
