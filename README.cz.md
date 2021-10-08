@@ -3,7 +3,7 @@ https://github.com/almaavu/falsevisir
 
 **Program pro automatické vytvoření obrazu ve falešných barvách spojením snímků ve viditelném a infračerveném světle.**
 
-Zobrazení ve falešných barvách je technika zpracování obrazu používaná při průzkumu uměleckých děl (např. závěsných obrazů, nástěnných maleb, polychromovaných plastik). Pro vyhodnocení je vhodné porovnat snímky získané infračervenou reflektografií (IRR) se snímky ve viditelném světle (VIS). Spojení obou obrazů do snímku ve falešných barvách může pomoci při studiu podmalby nebo pro identifikaci některých pigmentů. 
+Zobrazení ve falešných barvách je technika zpracování obrazu používaná při průzkumu uměleckých děl (např. závěsných obrazů, nástěnných maleb, polychromovaných plastik). Pro vyhodnocení je vhodné porovnat snímky získané infračervenou reflektografií (IRR) se snímky ve viditelném světle (VIS). Spojení obou obrazů do snímku ve falešných barvách může pomoci při studiu podmalby nebo pro identifikaci některých pigmentů. [[1]](#1).
 
 Ve výsledném obrazu jsou RGB kanály využity takto:
  - R <- IRR
@@ -79,3 +79,8 @@ Transformované snímky
   <img src="samples/false_color_images/ir_image_vis_image_vi_warp.png" width="150">
     <img src="samples/false_color_images/ir_image_vis_image_ir_warp.png" width="150">
 </p>
+
+
+### Odkazy:
+<a id="1">[1]</a> 
+https://en.wikipedia.org/wiki/False_color
