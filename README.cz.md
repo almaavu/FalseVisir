@@ -6,11 +6,9 @@ https://github.com/almaavu/falsevisir
 Zobrazení ve falešných barvách je technika zpracování obrazu používaná při průzkumu uměleckých děl (např. závěsných obrazů, nástěnných maleb, polychromovaných plastik). Pro vyhodnocení je vhodné porovnat snímky získané infračervenou reflektografií (IRR) se snímky ve viditelném světle (VIS). Spojení obou obrazů do snímku ve falešných barvách může pomoci při studiu podmalby nebo pro identifikaci některých pigmentů. [[1]](#1), [[2]](#2).
 
 Ve výsledném obrazu jsou RGB kanály využity takto:
- - R <- IRR
- - G <- R (VIS)
- - B <- G (VIS)
-
-Modrý kanál VIS snímku využitý ve falešných barvách není.
+* R <- IRR
+* G <- R (VIS)
+* B <- G (VIS)
 
 Pro složení snímků jsou obvykle využívány grafické editory (Adobe Photoshop, GIMP, ...). Snímky jsou zobrazeny přes sebe, pro přesný překryv je obvykle je nutné je transformovat a napravit tak zkreslení způsobené rozdíly v geometrii zobrazení a použitých objektivech.
 
