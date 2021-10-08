@@ -10,7 +10,7 @@ Ve výsledném obrazu jsou RGB kanály využity takto:
 * G <- R (VIS)
 * B <- G (VIS)
 
-Pro složení snímků jsou obvykle využívány grafické editory (Adobe Photoshop, GIMP, ...). Snímky jsou zobrazeny přes sebe, pro přesný překryv je obvykle je nutné je transformovat a napravit tak zkreslení způsobené rozdíly v geometrii zobrazení a použitých objektivech.
+Pro složení snímků jsou obvykle využívány grafické editory (Adobe Photoshop, GIMP, ...). Snímky jsou zobrazeny přes sebe, pro přesný překryv je obvykle je nutné je transformovat a napravit tak zkreslení způsobené rozdíly v geometrii zobrazení a použitých objektivech. 
 
 Pokud mají oba snímky podobné rysy, je možné je provést transformaci a následné složení do falešných barev automaticky. To je výhodné zejména při zpracování většího počtu snímků.  
 
@@ -36,24 +36,15 @@ Cesta a název souboru snímku ve viditelném světla (formát RGB) a infračerv
 
 ### Postup:
 - Změna velikosti obrázků na stejnou výšku
-- Transformace snímků pro přesné překrytí - oprava rozdílů v natočení, perspektivním zkreslení, zkreslení různých objektivů apod. (obrázky musí mít podobné rysy, jinak  může selhat)
-- Spojení obrazů do falešných barev - výsledný RGB snímek obsahuje R kanál z IR snímku,
-     G kanál z VIS-R a B kanál z VIS-G (VIS-B je vyřazen)
+- Transformace snímků pro přesné překrytí - oprava rozdílů v natočení, perspektivním zkreslení, zkreslení různých objektivů apod. (obrázky musí mít podobné rysy, jinak  může selhat) [[3]](#3)
+- Spojení obrazů do falešných barev (IRR-R-G)
 - Prolnutí obrazů (50% IR, 50% VIS)
+- Uložení výsledků
 
 ### Výstup:
 - Snímek ve falešných barvách
 - Snímek s překrytými snímky v IR a VIS světle (50 % IR + 50 % VIS)
 - Transformované snímky v IR a VIS světle (se snímky lze dále pracovat, např. pro vytvoření prolnutí s jinými parametry)
-
-### Odkazy:
-
-https://en.wikipedia.org/wiki/False_color
-
-https://chsopensource.org/infrared-false-color-photography-irfc/
-
-https://en.wikipedia.org/wiki/Affine_transformation
-
 
 ## Ukázka:
 
@@ -85,3 +76,6 @@ https://en.wikipedia.org/wiki/False_color
 
 <a id="2">[2]</a> 
 [Cosentino, A. Identification of pigments by multispectral imaging; a flowchart method. herit sci 2, 8 (2014). https://doi.org/10.1186/2050-7445-2-8](https://heritagesciencejournal.springeropen.com/articles/10.1186/2050-7445-2-8)
+
+<a id="3">[3]</a> 
+https://en.wikipedia.org/wiki/Affine_transformation
