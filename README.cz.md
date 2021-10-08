@@ -9,9 +9,12 @@ Ve výsledném obrazu jsou RGB kanály využity takto:
  - R <- IRR
  - G <- R (VIS)
  - B <- G (VIS)
+
 Modrý kanál VIS snímku využitý ve falešných barvách není.
 
-Pro složení snímků jsou obvykle využívány grafické editory (Adobe Photoshop, GIMP, ...). Snímky je potřeba  
+Pro složení snímků jsou obvykle využívány grafické editory (Adobe Photoshop, GIMP, ...). Snímky jsou zobrazeny přes sebe, pro přesný překryv je obvykle je nutné je transformovat a napravit tak zkreslení způsobené rozdíly v geometrii zobrazení a použitých objektivech.
+
+Pokud mají oba snímky podobné rysy, je možné je provést transformaci a následné složení do falešných barev automaticky. To je výhodné zejména při zpracování většího počtu snímků.  
 
 ### Instalace:
 Instalace programovacího jazyka Python3
