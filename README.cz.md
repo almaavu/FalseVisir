@@ -22,6 +22,16 @@ Instalace programovacího jazyka Python3
 Instalace programu falsevisir
 
     python -m pip install git+https://github.com/almaavu/falsevisir.git
+    
+    
+Instalace knihoven:
+
+    python -m pip install --upgrade requirements.txt
+    
+* numpy
+* matplotlib
+* scikit-image
+* imageio
 
 ### Použití:
 
