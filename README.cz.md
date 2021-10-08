@@ -84,5 +84,6 @@ Transformované snímky
 ### Odkazy:
 <a id="1">[1]</a> 
 https://en.wikipedia.org/wiki/False_color
+
 <a id="2">[2]</a> 
-https://heritagesciencejournal.springeropen.com/articles/10.1186/2050-7445-2-8
+[https://heritagesciencejournal.springeropen.com/articles/10.1186/2050-7445-2-8](Cosentino, A. Identification of pigments by multispectral imaging; a flowchart method. herit sci 2, 8 (2014). https://doi.org/10.1186/2050-7445-2-8)
