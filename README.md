@@ -32,15 +32,29 @@ https://chsopensource.org/infrared-false-color-photography-irfc/
 https://en.wikipedia.org/wiki/Affine_transformation
 
 
+---
+
 ## Example:
 
-### Source images:
+### Source:
 <p align="center">
-  <img src="samples/vis_image.jpg" width="150" title="">
-  <img src="samples/ir_image.jpg" width="150" alt="">
+  <img src="samples/vis_samples/a001_vis_image.jpg" width="150" title="">
+  <img src="samples/ir_samples/a001_ir_image.jpg" width="150" alt="">
 </p>
 
 ### Result:
+False color image
 <p align="center">
-  <img src="samples/false_color_images/ir_image_vis_image_falsecolor.png" width="150">
+  <img src="samples/false_color_results/a001_ir_image_a001_vis_image_falsecolor.png" width="150">
 </p>
+Blend
+<p align="center">
+  <img src="samples/false_color_results/a001_ir_image_a001_vis_image_blend.png" width="150">
+</p>
+Warped images
+<p align="center">
+  <img src="samples/false_color_results/a001_ir_image_a001_vis_image_ir_warp.png" width="150">
+    <img src="samples/false_color_results/a001_ir_image_a001_vis_image_vi_warp.png" width="150">
+</p>
+
+---

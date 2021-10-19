@@ -50,11 +50,13 @@ def main():
     print(vis_files)
 
     for file_id in tqdm(irr_files):
+        vi_path, ir_path = vis_files[file_id], irr_files[file_id]
+        print(f"--------- PROCESS PAIR... ID: {file_id} VIS: {vi_path}  IRR: {ir_path}-------------")
         if not file_id in vis_files:
             print(f"============== VIS file missing: {file_id}  ================") 
         else:    
             try:
-                process_pair(vis_files[file_id], irr_files[file_id], show=False, save=True, dst_dir=src_dir_vis.parent / "false_color_results")
+                process_pair(vi_path, ir_path, show=False, save=True, dst_dir=src_dir_vis.parent / "false_color_results")
             except Exception as e:
                 print(f"=================== FAILED: {file_id}  ===================\n{e}")
 
