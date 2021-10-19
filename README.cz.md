@@ -60,16 +60,12 @@ Program je také možné spustit interaktivně v prostředí Jupyter notebook:
 ### Vstupní data:
 Cesta a název souboru snímku ve viditelném světla (formát RGB) a infračerveného snímku (formát RGB nebo stupně šedé)
 
----
-
 ### Funkce programu:
 - Změna velikosti obrázků na stejnou výšku
 - Transformace snímků pro přesné překrytí - oprava rozdílů v natočení, perspektivním zkreslení, zkreslení různých objektivů apod. (obrázky musí mít podobné rysy, jinak  může selhat) [[3]](#3)
 - Spojení obrazů do falešných barev (IRR-R-G)
 - Prolnutí obrazů (50% IRR, 50% VIS)
 - Uložení výsledků
-
----
 
 ### Výstup:
 - Snímek ve falešných barvách
