@@ -3,3 +3,4 @@ __pycache__
 pull.sh
 push.sh
 *.py~
+.ipynb_checkpoints
