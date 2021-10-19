@@ -268,7 +268,7 @@ def warp_images(vis, irr, show=False, **kw):
     keypoints, descriptors = extract(images_gray, **CFG)
     logging.debug(f"{len(keypoints[0]), len(keypoints[1])}")
 
-    logging.info("find_matches...")
+    logging.info("Find_matches...")
     matches = feature.match_descriptors(*descriptors, cross_check=True, max_distance=CFG["max_distance"])  # slow
     logging.debug(f"found: {len(matches)} matches")
 
@@ -363,6 +363,44 @@ def extract(images, method="ORB", **kw):
 
 
 
+def process_pair(vi_path, ir_path, show=True, save=True, dst_dir=None):
+    
+   #%% Load images
+
+    vi_image, ir_image = [load_image(fp) for fp in (vi_path, ir_path)]
+
+    #%% Resize to same height
+    vi_image, ir_image = resize_images((vi_image, ir_image))
+
+    #   %% Warp images
+    vi_image, ir_image = warp_images(vi_image, ir_image, show=False)
+    info(ir_image, "ir_image")
+
+    #%% Blend images
+    blend_im = blend_image(vi_image, ir_image, weight=.5)
+    info(blend_im, "blend_im")
+
+    #%% False color image
+    false_im = false_image(vi_image, ir_image)
+    info(false_im, "false_im")
+
+    #%% Show results
+    if show:
+        show_images((vi_image, ir_image, blend_im, false_im), labels=("VIS", "IR", "BLEND", "FALSE_COLOR"))
+
+    #%% Save results
+    if save:
+        if not dst_dir:
+            dst_dir = vi_path.parent / f"false_color_images"
+        dst_dir.mkdir(exist_ok=True)
+
+        # Warped images
+        save_image(dst_dir / f"{ir_path.stem}_{vi_path.stem}_vi_warp.png", vi_image)
+        save_image(dst_dir / f"{ir_path.stem}_{vi_path.stem}_ir_warp.png", ir_image)
+
+        # Blended images
+        save_image(dst_dir / f"{ir_path.stem}_{vi_path.stem}_blend.png", blend_im)
+        save_image(dst_dir / f"{ir_path.stem}_{vi_path.stem}_falsecolor.png", false_im)
 
 
 
@@ -370,10 +408,9 @@ def extract(images, method="ORB", **kw):
 
 if __name__ == "__main__":
 
-    SAVE = True
     # LOGLEVEL = logging.DEBUG
     LOGLEVEL = logging.INFO
-    SAMPLES = ("samples/vis_image.jpg", "samples/ir_image.jpg")
+    SAMPLES = ("samples/vis_samples/a001_vis_image.jpg", "samples/ir_samples/a001_ir_image.jpg")
 
     logging.basicConfig(
         level=LOGLEVEL, format='!%(levelno)s [%(module)10s %(lineno)4d]\t%(message)s')
@@ -385,39 +422,6 @@ if __name__ == "__main__":
     im_paths = [Path(fp) for fp in im_paths]
     vi_path, ir_path = im_paths
 
-#%% Load images
-
-    vi_image, ir_image = [load_image(fp) for fp in im_paths]
-
-#%% Resize to same height
-    vi_image, ir_image = resize_images((vi_image, ir_image))
-
-#%% Warp images
-    vi_image, ir_image = warp_images(vi_image, ir_image, show=False)
-    info(ir_image, "ir_image")
-
-#%% Blend images
-    blend_im = blend_image(vi_image, ir_image, weight=.5)
-    info(blend_im, "blend_im")
-
-#%% False color image
-    false_im = false_image(vi_image, ir_image)
-    info(false_im, "false_im")
-
-#%% Show results
-    show_images((vi_image, ir_image, blend_im, false_im), labels=("VIS", "IR", "BLEND", "FALSE_COLOR"))
-
-#%% Save results
-    if SAVE:
-        dst_dir = vi_path.parent / f"false_color_images"
-        dst_dir.mkdir(exist_ok=True)
-
-        # Warped images
-        save_image(dst_dir / f"{ir_path.stem}_{vi_path.stem}_vi_warp.png", vi_image)
-        save_image(dst_dir / f"{ir_path.stem}_{vi_path.stem}_ir_warp.png", ir_image)
-
-        # Blended images
-        save_image(dst_dir / f"{ir_path.stem}_{vi_path.stem}_blend.png", blend_im)
-        save_image(dst_dir / f"{ir_path.stem}_{vi_path.stem}_falsecolor.png", false_im)
+    process_pair(vi_path, ir_path, show=True, save=True, dst_dir=vi_path.parent / "false_color_results")
 
     logging.debug(f"Script finished in {time.time() - start:.1f} s")
