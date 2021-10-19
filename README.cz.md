@@ -55,11 +55,11 @@ Skript je možné spustit i bez instalace:
 
 Program je také možné spustit interaktivně v prostředí Jupyter notebook:
 
-    jupyter notebook falsevisir-jupyter.ipynb
+    jupyter notebook falsevisir_jupyter.ipynb
 
-Program falsevisir_batch.py je určený pro hromadné zpracování většího počtu obrázků. Program načte snímky ze zvolených složek a zpracuje páry souborů podle ID souborů, které musí být uvedeno na začátku názvu následované podtržítkem. Zpracuje např. soubory "vis_samples/a001_vis_image.jpg" a "ir_samples/a001_ir_image.jpg". 
+Program falsevisir_batch.py je určený pro hromadné zpracování většího počtu obrázků. Program načte snímky ze zvolených složek a zpracuje páry souborů podle ID souborů, které musí být uvedeno na začátku názvu následované podtržítkem. Zpracuje např. soubory "a001_vis_image.jpg" a "a001_ir_image.jpg". 
 
-    python falsevisir_batch.py "vis_folder_path" "ir_folder_path"  
+    python falsevisir_batch.py "samples/vis_samples/a001_vis_image.jpg" "samples/ir_samples/a001_ir_image.jpg"  
 
 ### Vstupní data:
 Cesta a název souboru snímku ve viditelném světla (formát RGB) a infračerveného snímku (formát RGB nebo stupně šedé)
