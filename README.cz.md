@@ -63,7 +63,7 @@ Program falsevisir_batch.py je určený pro hromadné zpracování většího po
     python falsevisir_batch.py "samples/vis_samples/" "samples/ir_samples/"  
 
 ### Vstupní data:
-Cesta a název souboru snímku ve viditelném světla (formát RGB) a infračerveného snímku (formát RGB nebo stupně šedé)
+Cesta a název souboru snímku ve viditelném světla (formát RGB) a infračerveného snímku (formát RGB nebo stupně šedé). Snímky by měly být oříznuté na přibližně stejný výřez (bez přehnaně širokých okrajů).
 
 ### Funkce programu:
 - Změna velikosti obrázků na stejnou výšku
