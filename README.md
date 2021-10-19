@@ -3,6 +3,33 @@ https://github.com/almaavu/falsevisir
 
 **Combine infrared and visible light images of the same object to false colors automatically.**
 
+
+---
+
+## Install:
+
+Python3
+
+    https://www.python.org/downloads/
+    
+falsevisir
+
+    python -m pip install --upgrade git+https://github.com/almaavu/falsevisir.git#egg=falsevisir
+
+Dependencies:
+
+    python -m pip install --upgrade requirements.txt
+    
+* numpy
+* matplotlib
+* scikit-image
+* imageio
+
+---
+
+
+
+
 ### Input: 
 file paths of visible light image (RGB) and infrared image (RGB or grey)
 
