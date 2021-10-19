@@ -56,7 +56,7 @@ Skript je možné spustit i bez instalace:
 
     python falsevisir.py vis_soubor.jpg ir_soubor.jpg 
 
-Program je také možné spustit v prostředí Jupyter notebook:
+Program je také možné spustit interaktivně v prostředí Jupyter notebook:
 
     jupyter notebook falsevisir-jupyter.ipynb
 
