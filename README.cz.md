@@ -1,20 +1,33 @@
+---
+pinned: true
+tags: [Import-d0d5]
+title: falsevisir
+created: '2021-10-08T11:13:48.566Z'
+modified: '2021-10-19T10:36:04.249Z'
+---
+
 # falsevisir
 https://github.com/almaavu/falsevisir
 
 **Program pro automatické vytvoření obrazu ve falešných barvách spojením snímků ve viditelném a infračerveném světle.**
 
+
+
 Zobrazení ve falešných barvách je technika zpracování obrazu používaná při průzkumu uměleckých děl (např. závěsných obrazů, nástěnných maleb, polychromovaných plastik). Pro vyhodnocení je vhodné porovnat snímky získané infračervenou reflektografií (IRR) se snímky ve viditelném světle (VIS). Spojení obou obrazů do snímku ve falešných barvách může pomoci při studiu podmalby nebo pro identifikaci některých pigmentů. [[1]](#1), [[2]](#2).
 
 Ve výsledném obrazu jsou RGB kanály využity takto:
-* R <- IRR
-* G <- R (VIS)
-* B <- G (VIS)
-
+```
+    IRR   -> R
+    Vis R -> G
+    Vis G -> B
+    Vis B ->  
+```
 Pro složení snímků jsou obvykle využívány grafické editory (Adobe Photoshop, GIMP, ...). Snímky jsou zobrazeny přes sebe, pro přesný překryv je obvykle je nutné je transformovat a napravit tak zkreslení způsobené rozdíly v geometrii zobrazení a použitých objektivech. 
 
-Pokud mají oba snímky podobné rysy, je možné je provést transformaci a následné složení do falešných barev automaticky. To je výhodné zejména při zpracování většího počtu snímků.  
+Pokud mají oba snímky podobné rysy, je možné je provést transformaci a následné složení do falešných barev automaticky. To je výhodné zejména při zpracování většího počtu snímků.   
 
 ### Instalace:
+
 Instalace programovacího jazyka Python3
 
     https://www.python.org/downloads/
@@ -35,20 +48,26 @@ Instalace knihoven:
 
 ### Použití:
 
+Program lze spustit z příkazového řádku se zadáním cesty ke vstupním souborům - obrázku ve viditelném a infračerveném světle.
+
     python -m falsevisir vis_soubor.jpg ir_soubor.jpg  
     
 Skript je možné spustit i bez instalace:
 
     python falsevisir.py vis_soubor.jpg ir_soubor.jpg 
 
+Program je také možné spustit v prostředí Jupyter notebook:
+
+    jupyter notebook falsevisir-jupyter.ipynb
+
 ### Vstupní data:
 Cesta a název souboru snímku ve viditelném světla (formát RGB) a infračerveného snímku (formát RGB nebo stupně šedé)
 
-### Postup:
+### Funkce programu:
 - Změna velikosti obrázků na stejnou výšku
 - Transformace snímků pro přesné překrytí - oprava rozdílů v natočení, perspektivním zkreslení, zkreslení různých objektivů apod. (obrázky musí mít podobné rysy, jinak  může selhat) [[3]](#3)
 - Spojení obrazů do falešných barev (IRR-R-G)
-- Prolnutí obrazů (50% IR, 50% VIS)
+- Prolnutí obrazů (50% IRR, 50% VIS)
 - Uložení výsledků
 
 ### Výstup:

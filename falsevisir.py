@@ -242,7 +242,7 @@ def preprocess_images(images):
         logging.debug("apply edge filter....")
         images_gray = [feature.canny(im, sigma=2, low_threshold=.05, high_threshold=.1) for im in images_gray]
     
-    if LOGLEVEL == logging.DEBUG:
+    if logging.root.level == logging.DEBUG:
         show_images(images_gray, labels=["downsized VIS","downsized IR"])
     
     return images_gray
@@ -272,7 +272,7 @@ def warp_images(vis, irr, show=False, **kw):
     matches = feature.match_descriptors(*descriptors, cross_check=True, max_distance=CFG["max_distance"])  # slow
     logging.debug(f"found: {len(matches)} matches")
 
-    if LOGLEVEL == logging.DEBUG:
+    if logging.root.level == logging.DEBUG:
         show_matches(images_gray, keypoints, matches, "all matches")
         logging.debug(keypoints)
         logging.debug(matches)
@@ -292,7 +292,7 @@ def warp_images(vis, irr, show=False, **kw):
     if not transformation_valid(model_robust):
         raise ValueError("Transformation failed, not enough similar features?")
         
-    if LOGLEVEL == logging.DEBUG:
+    if logging.root.level == logging.DEBUG:
         show_matches(images_gray, keypoints, matches[inliers], "good matches")
 #    logging.debug(model_robust)
 
@@ -402,7 +402,7 @@ if __name__ == "__main__":
 
 #%% False color image
     false_im = false_image(vi_image, ir_image)
-    info(blend_im, "false_im")
+    info(false_im, "false_im")
 
 #%% Show results
     show_images((vi_image, ir_image, blend_im, false_im), labels=("VIS", "IR", "BLEND", "FALSE_COLOR"))
