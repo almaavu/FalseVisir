@@ -22,6 +22,24 @@ file paths of visible light image (RGB) and infrared image (RGB or grey)
 - IR image resized and warped
 
 
+## Usage:
+
+    python -m falsevisir "vis_soubor.jpg" "ir_soubor.jpg"  
+    
+Without installation:
+
+    python falsevisir.py "vis_soubor.jpg" "ir_soubor.jpg" 
+
+In Jupyter notebook:
+
+    jupyter notebook falsevisir_jupyter.ipynb
+
+Batch processing: 
+
+    python falsevisir_batch.py "samples/vis_samples/" "samples/ir_samples/" 
+    
+    
+
 
 ### resources:
 
