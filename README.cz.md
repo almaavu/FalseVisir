@@ -85,16 +85,16 @@ Cesta a název souboru snímku ve viditelném světla (formát RGB) a infračerv
 ### Výsledek:
 Obraz ve falešných barvách
 <p align="center">
-  <img src="samples/false_color_images/ir_image_vis_image_falsecolor.png" width="150">
+  <img src="samples/false_color_results/a001_ir_image_a001_vis_image_falsecolor.png" width="150">
 </p>
 Prolnutí
 <p align="center">
-  <img src="samples/false_color_images/ir_image_vis_image_blend.png" width="150">
+  <img src="samples/false_color_results/a001_ir_image_a001_vis_image_blend.png" width="150">
 </p>
 Transformované snímky
 <p align="center">
-  <img src="samples/false_color_images/ir_image_vis_image_vi_warp.png" width="150">
-    <img src="samples/false_color_images/ir_image_vis_image_ir_warp.png" width="150">
+  <img src="samples/false_color_results/a001_ir_image_a001_vis_image_ir_warp.png" width="150">
+    <img src="samples/false_color_results/a001_ir_image_a001_vis_image_vi_warp.png" width="150">
 </p>
 
 ---
