@@ -222,7 +222,7 @@ def transformation_valid(model_robust):
     
     return valid
   
-def preprocess_images(images):
+def preprocess_images(images, show=False):
     
     # TO GRAY 
     images_gray = [rgb2gray(im) if im.ndim > 2 else im for im in images]
@@ -242,7 +242,7 @@ def preprocess_images(images):
         logging.debug("apply edge filter....")
         images_gray = [feature.canny(im, sigma=2, low_threshold=.05, high_threshold=.1) for im in images_gray]
     
-    if logging.root.level == logging.DEBUG:
+    if show:
         show_images(images_gray, labels=["downsized VIS","downsized IR"])
     
     return images_gray
@@ -262,7 +262,7 @@ def warp_images(vis, irr, show=False, **kw):
     images_small = resize_images(images, new_height=CFG['downsize'])
     downsize_scale = CFG['downsize'] / orig_height
     logging.debug("preprocess images...")
-    images_gray = preprocess_images(images_small)
+    images_gray = preprocess_images(images_small, show=show)
 
     logging.debug("find_keypoints...")
     keypoints, descriptors = extract(images_gray, **CFG)
@@ -272,7 +272,7 @@ def warp_images(vis, irr, show=False, **kw):
     matches = feature.match_descriptors(*descriptors, cross_check=True, max_distance=CFG["max_distance"])  # slow
     logging.debug(f"found: {len(matches)} matches")
 
-    if logging.root.level == logging.DEBUG:
+    if show == logging.DEBUG:
         show_matches(images_gray, keypoints, matches, "all matches")
         logging.debug(keypoints)
         logging.debug(matches)
@@ -292,7 +292,7 @@ def warp_images(vis, irr, show=False, **kw):
     if not transformation_valid(model_robust):
         raise ValueError("Transformation failed, not enough similar features?")
         
-    if logging.root.level == logging.DEBUG:
+    if show == logging.DEBUG:
         show_matches(images_gray, keypoints, matches[inliers], "good matches")
 #    logging.debug(model_robust)
 
@@ -393,7 +393,7 @@ if __name__ == "__main__":
     vi_image, ir_image = resize_images((vi_image, ir_image))
 
 #%% Warp images
-    vi_image, ir_image = warp_images(vi_image, ir_image)
+    vi_image, ir_image = warp_images(vi_image, ir_image, show=False)
     info(ir_image, "ir_image")
 
 #%% Blend images
