@@ -38,8 +38,7 @@ def main():
 
     src_dir_vis, src_dir_irr  = "samples/vis_samples", "samples/ir_samples"
     src_dir_vis, src_dir_irr  = Path(src_dir_vis), Path(src_dir_irr)  
-    
-    
+        
     irr_files = get_files_dict(src_dir_irr, extensions=(".png", ".jpg"))
     vis_files = get_files_dict(src_dir_vis, extensions=(".png", ".jpg"))
     print(irr_files)

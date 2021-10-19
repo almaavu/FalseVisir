@@ -422,6 +422,6 @@ if __name__ == "__main__":
     im_paths = [Path(fp) for fp in im_paths]
     vi_path, ir_path = im_paths
 
-    process_pair(vi_path, ir_path, show=True, save=True, dst_dir=vi_path.parent / "false_color_results")
+    process_pair(vi_path, ir_path, show=True, save=True, dst_dir=vi_path.parent.parent / "false_color_results")
 
     logging.debug(f"Script finished in {time.time() - start:.1f} s")
