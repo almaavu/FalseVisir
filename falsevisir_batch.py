@@ -2,7 +2,7 @@
 '''
 
 '''
-
+import sys
 from pprint import pprint
 from pathlib import Path
 
@@ -36,7 +36,12 @@ def get_files_dict(src_dir, extensions=(".png")):
 
 def main():
 
-    src_dir_vis, src_dir_irr  = "samples/vis_samples", "samples/ir_samples"
+
+
+    SAMPLES  = "samples/vis_samples", "samples/ir_samples"
+
+    src_dir_vis, src_dir_irr = sys.argv[1:3] if len(sys.argv) == 3 else SAMPLES
+
     src_dir_vis, src_dir_irr  = Path(src_dir_vis), Path(src_dir_irr)  
         
     irr_files = get_files_dict(src_dir_irr, extensions=(".png", ".jpg"))

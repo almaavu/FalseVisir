@@ -59,7 +59,7 @@ Program je také možné spustit interaktivně v prostředí Jupyter notebook:
 
 Program falsevisir_batch.py je určený pro hromadné zpracování většího počtu obrázků. Program načte snímky ze zvolených složek a zpracuje páry souborů podle ID souborů, které musí být uvedeno na začátku názvu následované podtržítkem. Zpracuje např. soubory "a001_vis_image.jpg" a "a001_ir_image.jpg". 
 
-    python falsevisir_batch.py "samples/vis_samples/a001_vis_image.jpg" "samples/ir_samples/a001_ir_image.jpg"  
+    python falsevisir_batch.py "samples/vis_samples/" "samples/ir_samples/"  
 
 ### Vstupní data:
 Cesta a název souboru snímku ve viditelném světla (formát RGB) a infračerveného snímku (formát RGB nebo stupně šedé)
