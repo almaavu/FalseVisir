@@ -1,7 +1,0 @@
-README.md
-setup.py
-falsevisir.egg-info/PKG-INFO
-falsevisir.egg-info/SOURCES.txt
-falsevisir.egg-info/dependency_links.txt
-falsevisir.egg-info/requires.txt
-falsevisir.egg-info/top_level.txt
