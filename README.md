@@ -7,7 +7,6 @@ https://github.com/almaavu/falsevisir
 file paths of visible light image (RGB) and infrared image (RGB or grey)
 
 
-
 ### Process:
 - resize images to same height
 - warp images to fit when overlayed (images must have similar features, otherwise it may fail)
@@ -16,19 +15,11 @@ file paths of visible light image (RGB) and infrared image (RGB or grey)
 - blend images (50 % IR, 50 % VIS)
 
 
-
-
 ### Output:
 - False color image
 - Blend image
 - VIS image resized and warped
 - IR image resized and warped
-
-
-
-
-### TODO:
-- remove first resize step? 
 
 
 

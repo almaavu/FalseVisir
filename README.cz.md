@@ -1,10 +1,3 @@
----
-pinned: true
-tags: [Import-d0d5]
-title: falsevisir
-created: '2021-10-08T11:13:48.566Z'
-modified: '2021-10-19T10:36:04.249Z'
----
 
 # falsevisir
 https://github.com/almaavu/falsevisir
