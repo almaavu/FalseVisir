@@ -19,7 +19,9 @@ Pro složení snímků jsou obvykle využívány grafické editory (Adobe Photos
 
 Pokud mají oba snímky podobné rysy, je možné je provést transformaci a následné složení do falešných barev automaticky. To je výhodné zejména při zpracování většího počtu snímků.   
 
-### Instalace:
+---
+
+## Instalace:
 
 Instalace programovacího jazyka Python3
 
@@ -39,7 +41,9 @@ Instalace knihoven:
 * scikit-image
 * imageio
 
-### Použití:
+---
+
+## Použití:
 
 Program lze spustit z příkazového řádku se zadáním cesty ke vstupním souborům - obrázku ve viditelném a infračerveném světle.
 
@@ -56,6 +60,8 @@ Program je také možné spustit interaktivně v prostředí Jupyter notebook:
 ### Vstupní data:
 Cesta a název souboru snímku ve viditelném světla (formát RGB) a infračerveného snímku (formát RGB nebo stupně šedé)
 
+---
+
 ### Funkce programu:
 - Změna velikosti obrázků na stejnou výšku
 - Transformace snímků pro přesné překrytí - oprava rozdílů v natočení, perspektivním zkreslení, zkreslení různých objektivů apod. (obrázky musí mít podobné rysy, jinak  může selhat) [[3]](#3)
@@ -63,10 +69,14 @@ Cesta a název souboru snímku ve viditelném světla (formát RGB) a infračerv
 - Prolnutí obrazů (50% IRR, 50% VIS)
 - Uložení výsledků
 
+---
+
 ### Výstup:
 - Snímek ve falešných barvách
 - Snímek s překrytými snímky v IR a VIS světle (50 % IR + 50 % VIS)
 - Transformované snímky v IR a VIS světle (se snímky lze dále pracovat, např. pro vytvoření prolnutí s jinými parametry)
+
+---
 
 ## Ukázka:
 
@@ -91,6 +101,7 @@ Transformované snímky
     <img src="samples/false_color_images/ir_image_vis_image_ir_warp.png" width="150">
 </p>
 
+---
 
 ### Odkazy:
 <a id="1">[1]</a> 
