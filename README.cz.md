@@ -72,6 +72,14 @@ Cesta a název souboru snímku ve viditelném světla (formát RGB) a infračerv
 - Prolnutí obrazů (50% IRR, 50% VIS)
 - Uložení výsledků
 
+
+### Konfigurace:
+Parametry jsou uloženy v globální proměnné CFG. Jejich úprava může být užitečná, pokud program nenajde správnou transformaci.
+- downsize: výška zmenšeného obrázku v pixelech. Zmenšené snímky program používá pro urychlení výpočtu transformace. Změna velikosti může pomoci, když transformace selže. Vyšší hodnota vede k pomalejšímu výpočtu, výchozí hodnota: 500 pix.  
+
+
+
+
 ### Výstup:
 - Snímek ve falešných barvách
 - Snímek s překrytými snímky v IR a VIS světle (50 % IR + 50 % VIS)

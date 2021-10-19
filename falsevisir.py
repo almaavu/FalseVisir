@@ -46,25 +46,40 @@ from skimage import transform, exposure, feature
 
 
 CFG = dict(
-    max_distance = 200,
-    min_distance = 1,
-    threshold_rel = 1e-7,
-    patch_size=59,
-    method="HARRIS",  
-    # method="ORB",  
-    min_samples = 10,
-    residual_threshold = 1,
-    max_trials = 800,
-    irr_weight = .5,
+    
     downsize = 500,
-    preprocess_images = {
-        # 'equalize' : True, # same speed, same results?
-        'equalize' : False,
-        'normalize' : True, # same speed, same results?
-        # 'normalize' : False, 
-        # 'edge' : True,  # faster
-        'edge' : False,  # better results? 
-        },
+
+    preprocess_images = dict(
+        # equalize = True, # same speed, same results?
+        equalize = False,
+        normalize = True, # same speed, same results?
+        # normalize = False, 
+        # edge = True,  # faster
+        edge = False,  # better results? 
+        ),
+
+
+    extract_features = dict(
+        method="HARRIS",  
+        # method="ORB", 
+        min_distance = 1,
+        threshold_rel = 1e-7,
+        patch_size=59,
+        ),
+
+    ransac = dict(
+        residual_threshold = 1,   
+        min_samples = 10,
+        max_trials = 800,
+        ),
+
+    match = dict(
+        max_distance = 200,
+        ),
+    
+    irr_weight = .5,
+
+
     model_robust_param_limits = [  # detect excessive transformation
                                     [    [-10,-1,-100],
                                           [-1,-2,-100],
@@ -265,14 +280,14 @@ def warp_images(vis, irr, show=False, **kw):
     images_gray = preprocess_images(images_small, show=show)
 
     logging.debug("find_keypoints...")
-    keypoints, descriptors = extract(images_gray, **CFG)
+    keypoints, descriptors = extract(images_gray, **CFG['extract_features'])
     logging.debug(f"{len(keypoints[0]), len(keypoints[1])}")
 
     logging.info("Find_matches...")
-    matches = feature.match_descriptors(*descriptors, cross_check=True, max_distance=CFG["max_distance"])  # slow
+    matches = feature.match_descriptors(*descriptors, cross_check=True, **CFG["match"])  # slow
     logging.debug(f"found: {len(matches)} matches")
 
-    if show == logging.DEBUG:
+    if show:
         show_matches(images_gray, keypoints, matches, "all matches")
         logging.debug(keypoints)
         logging.debug(matches)
@@ -283,10 +298,7 @@ def warp_images(vis, irr, show=False, **kw):
 
     model_robust, inliers = sk.measure.ransac(
             (src_keys, dst_keys),
-            transform.ProjectiveTransform,
-            min_samples=CFG['min_samples'],
-            residual_threshold=CFG['residual_threshold'],
-            max_trials=CFG['max_trials'])
+            transform.ProjectiveTransform, **CFG['ransac'])
 
     logging.debug(f"model robust parameters: {model_robust.params}")
     if not transformation_valid(model_robust):
@@ -334,7 +346,7 @@ def select_matches(keypoints, matches, min_samples=4, residual_threshold=3, max_
     return model_robust, inliers
 
 
-def extract(images, method="ORB", **kw):
+def extract(images, method="HARRIS", min_distance = 1, threshold_rel = 1e-7, patch_size=59, **kw):
     '''Find keypoints in both images.'''
     logging.debug(f"extract images, method: {method}, kw: {kw}")
 
@@ -350,11 +362,11 @@ def extract(images, method="ORB", **kw):
 
     elif method == "HARRIS":
         # https://www.kite.com/python/docs/skimage.feature.BRIEF
-        brief = feature.BRIEF(patch_size=kw["patch_size"], mode="uniform")
+        brief = feature.BRIEF(patch_size=patch_size, mode="uniform")
         for im in images:
             logging.debug(f"{im.shape}")
-            keypoints1 = feature.corner_peaks(feature.corner_harris(im), min_distance=kw["min_distance"],
-                              threshold_rel=kw["threshold_rel"])
+            keypoints1 = feature.corner_peaks(feature.corner_harris(im), min_distance=min_distance,
+                              threshold_rel=threshold_rel)
             brief.extract(im, keypoints1)
             keypoints.append(keypoints1[brief.mask])
             descriptors.append(brief.descriptors)
