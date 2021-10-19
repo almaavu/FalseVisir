@@ -78,8 +78,8 @@ Cesta a název souboru snímku ve viditelném světla (formát RGB) a infračerv
 
 ### Zdrojové obrázky:
 <p align="center">
-  <img src="samples/vis_image.jpg" width="150" title="">
-  <img src="samples/ir_image.jpg" width="150" alt="">
+  <img src="samples/vis_samples/a001_vis_image.jpg" width="150" title="">
+  <img src="samples/ir_samples/a001_ir_image.jpg" width="150" alt="">
 </p>
 
 ### Výsledek:
