@@ -76,7 +76,10 @@ Cesta a název souboru snímku ve viditelném světla (formát RGB) a infračerv
 ### Konfigurace:
 Parametry jsou uloženy v globální proměnné CFG. Jejich úprava může být užitečná, pokud program nenajde správnou transformaci.
 - downsize: výška zmenšeného obrázku v pixelech. Zmenšené snímky program používá pro urychlení výpočtu transformace. Změna velikosti může pomoci, když transformace selže. Vyšší hodnota vede k pomalejšímu výpočtu, výchozí hodnota: 500 pix.  
-
+- preprocess_images: Před výpočtem transformace je lze provést úpravu jasu a kontrastu ("normalize"), equalizaci histogramu ("equalize") nebo detekci hran ("edge")
+- extract_features: parametry funkce pro výběr bodů
+- ransac: parametry Ransac algoritmu použitého pro výběr odpovídajících dvojic bodů
+- match: parametry match algoritmu
 
 
 

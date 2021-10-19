@@ -75,7 +75,7 @@ CFG = dict(
 
     match = dict(
         max_distance = 200,
-        ),
+        ), 
     
     irr_weight = .5,
 
