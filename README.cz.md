@@ -19,7 +19,7 @@ Ve výsledném obrazu jsou RGB kanály využity takto:
 Příklad složení snímku v infračerveném světle s červeným a zeleným kanálem snímku ve viditelném světle:
 <TABLE>
    <TR>
-      <TD>IR</TD>
+      <TD>IRR</TD>
       <TD><img src="samples/false_color_results/a002_s002__TL_a002_palette_ir_warp.png" width="150"></TD>
       <TD colspan="3" align="center" style="text-align: center; vertical-align: middle;"></TD>
    </TR>
