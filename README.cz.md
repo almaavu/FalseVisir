@@ -138,11 +138,11 @@ Nezdařená transformace při nastavení parametru preprocess_images - edge:
 
 ### Konfigurace:
 Parametry jsou uloženy v globální proměnné CFG. Jejich úprava může být užitečná, pokud program nenajde správnou transformaci.
-- downsize: výška zmenšeného obrázku v pixelech. Zmenšené snímky program používá pro urychlení výpočtu transformace. Změna velikosti může pomoci, když transformace selže. Vyšší hodnota vede k pomalejšímu výpočtu, výchozí hodnota: 500 pix.  
-- preprocess_images: Před výpočtem transformace je lze provést úpravu jasu a kontrastu ("normalize"), equalizaci histogramu ("equalize") nebo detekci hran ("edge")
-- extract_features: parametry funkce pro výběr bodů
-- ransac: parametry Ransac algoritmu použitého pro výběr odpovídajících dvojic bodů
-- match: parametry match algoritmu
+- _downsize_: výška zmenšeného obrázku v pixelech. Zmenšené snímky program používá pro urychlení výpočtu transformace. Změna velikosti může pomoci, když transformace selže. Vyšší hodnota vede k pomalejšímu výpočtu, výchozí hodnota: 500 pix.  
+- _preprocess_images_: Před výpočtem transformace je lze provést úpravu jasu a kontrastu ("normalize"), equalizaci histogramu ("equalize") nebo detekci hran ("edge")
+- _extract_features_: parametry funkce pro výběr bodů
+- _ransac_: parametry Ransac algoritmu použitého pro výběr odpovídajících dvojic bodů
+- _match_: parametry match algoritmu
 
 Výchozí konfigurace:
 ```

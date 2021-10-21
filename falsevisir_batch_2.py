@@ -5,6 +5,7 @@
 import sys
 from pprint import pprint
 from pathlib import Path
+import re
 
 from tqdm import tqdm
 
@@ -35,31 +36,34 @@ def get_files_dict(src_dir, extensions=[".png"], id_pattern=r"(\w+?)_.*"):
     return file_dict
 
 
+
 def main():
 
 
 
-    SAMPLES  = "samples/vis_samples", "samples/ir_samples"
+    SAMPLES  =  "/home/m/Y/SKENY/VIS/", "/home/m/Y/APOLLO/2021/"
 
     src_dir_vis, src_dir_irr = sys.argv[1:3] if len(sys.argv) == 3 else SAMPLES
 
     src_dir_vis, src_dir_irr  = Path(src_dir_vis), Path(src_dir_irr)  
         
-    irr_files = get_files_dict(src_dir_irr, extensions=(".png", ".jpg"))
-    vis_files = get_files_dict(src_dir_vis, extensions=(".png", ".jpg"))
-    print(irr_files)
-    print(vis_files)
+    irr_files = get_files_dict(src_dir_irr, extensions=[".png"], id_pattern=r".*?_(\w{5})_.*")
+    vis_files = get_files_dict(src_dir_vis, extensions=[".tif"], id_pattern=r"(\w{5}).*")
+    pprint(irr_files)
+    pprint(vis_files)
 
     for file_id in tqdm(irr_files):
-        vi_path, ir_path = vis_files[file_id], irr_files[file_id]
-        print(f"--------- PROCESS PAIR... ID: {file_id} VIS: {vi_path}  IRR: {ir_path}-------------")
+
         if not file_id in vis_files:
-            print(f"============== VIS file missing: {file_id}  ================") 
-        else:    
-            try:
-                process_pair(vi_path, ir_path, show=False, save=True, dst_dir=src_dir_vis.parent / "false_color_results")
-            except Exception as e:
-                print(f"=================== FAILED: {file_id}  ===================\n{e}")
+            print(f"... VIS file missing: {file_id} ") 
+            continue
+        
+        vi_path, ir_path = vis_files[file_id], irr_files[file_id]
+        print(f"ID: {file_id} VIS: {vi_path}  IRR: {ir_path}...")   
+        try:
+            process_pair(vi_path, ir_path, show=False, save=True, dst_dir=src_dir_vis.parent / "false_color_results")
+        except Exception as e:
+            print(f"... FAILED: {file_id} \n{e}")
 
     print(f"{Path(__file__).resolve()} finished")
 
