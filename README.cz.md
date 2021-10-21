@@ -159,7 +159,7 @@ Výchozí konfigurace:
                            'edge_low_threshold': 0.05,
                            'edge_sigma': 2,
                            'equalize': False,
-                           'normalize': True},
+                           'normalize': False},
      'ransac': {'max_trials': 10000, 'min_samples': 5, 'residual_threshold': 10}}
 ```
 
