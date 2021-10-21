@@ -20,18 +20,18 @@ Ve výsledném obrazu jsou RGB kanály využity takto:
 <TABLE>
    <TR>
       <TD>IR</TD>
-      <TD><img src="samples/false_color_results/a002_s002__TL_a002_palette_ir_warp.png" width="150"></TD>
+      <TD> <img src="samples/false_color_results/a002_s002__TL_a002_palette_ir_warp.png" width="150"> </TD>
       <TD colspan="3" align="center" style="text-align: center; vertical-align: middle;"></TD>
    </TR>
    <TR>
       <TD>VIS</TD>
       <TD></TD>
-      <TD colspan="3" align="center" style="text-align: center; vertical-align: middle;"><img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp.png" width="150"></TD>
+      <TD colspan="3" align="center" style="text-align: center; vertical-align: middle;"> <img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp.png" width="150"> </TD>
    </TR>
    <TR>
       <TD>VIS R G B</TD>  
       <TD></TD>
-      <TD colspan="3" align="center" style="text-align: center; vertical-align: middle;"><img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp_0.png" width="150"><img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp_1.png" width="150"><img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp_2.png" width="150"></TD>
+      <TD colspan="3" align="center" style="text-align: center; vertical-align: middle;"> <img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp_0.png" width="150"> <img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp_1.png" width="150"> <img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp_2.png" width="150"></TD>
    </TR>
       <TR>
       <TD>FALSE COLOR R G B</TD>
