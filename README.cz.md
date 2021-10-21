@@ -111,9 +111,15 @@ Program je také možné spustit interaktivně v prostředí Jupyter notebook, t
 
     jupyter notebook falsevisir_jupyter.ipynb
 
-Kontrola průběhu transformace v prostředí Jupyter notebook:
 
-<img src="samples/jupyter/jupyter_sample.png" width="800" title="">
+Změna konfigurace v prostředí Jupyter notebook:
+
+<img src="samples/jupyter/jupyter_sample1.png" width="800" title="">
+
+
+Kontrola průběhu transformace:
+
+<img src="samples/jupyter/jupyter_sample2.png" width="800" title="">
 
 
 
