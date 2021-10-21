@@ -76,6 +76,7 @@ Instalace knihoven:
 * numpy
 * matplotlib
 * scikit-image
+* scipy
 * imageio
 
 ---
@@ -90,7 +91,7 @@ Skript je možné spustit i bez instalace:
 
     python falsevisir.py "vis_soubor.jpg" "ir_soubor.jpg" 
 
-Program je také možné spustit interaktivně v prostředí **Jupyter notebook**:
+Program je také možné spustit interaktivně v prostředí **Jupyter notebook**, to je výhodné v případě, kdy je potřeba sledovat jednotlivé kroky zpracování obrazů, např. při úpravě  nastavení konfigurace programu. 
 
     jupyter notebook falsevisir_jupyter.ipynb
 
