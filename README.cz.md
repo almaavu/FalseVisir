@@ -209,7 +209,7 @@ https://en.wikipedia.org/wiki/False_color
 <a id="3">[3]</a> 
 https://en.wikipedia.org/wiki/Affine_transformation
 
-
+---
 
 _Software je výsledkem projektu NAKI II: DG16P02R017_
 
