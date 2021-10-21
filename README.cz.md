@@ -28,7 +28,7 @@ Ve výsledném obrazu jsou RGB kanály využity takto:
    <TR>
       <TD>VIS</TD>
       <TD></TD>
-      <TD colspan="3" style="text-align: center; vertical-align: middle;"><img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp.png" width="150"></TD>
+      <TD colspan="3" align="center" style="text-align: center; vertical-align: middle;"><img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp.png" width="150"></TD>
    </TR>
    <TR>
       <TD>VIS R G B</TD>  
