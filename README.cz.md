@@ -113,7 +113,7 @@ Program je také možné spustit interaktivně v prostředí Jupyter notebook, t
 
 Kontrola průběhu transformace v prostředí Jupyter notebook:
 
-<img src="samples/jupyter/jupyter_sample.png" width="600" title="">
+<img src="samples/jupyter/jupyter_sample.png" width="800" title="">
 
 
 
