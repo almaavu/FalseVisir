@@ -5,7 +5,6 @@ https://github.com/almaavu/falsevisir
 **Program pro automatické vytvoření obrazu ve falešných barvách spojením snímků ve viditelném a infračerveném světle.**
 
 
-
 Zobrazení ve falešných barvách je technika zpracování obrazu používaná při průzkumu uměleckých děl (např. závěsných obrazů, nástěnných maleb, polychromovaných plastik). Pro vyhodnocení je vhodné porovnat snímky získané infračervenou reflektografií (IRR) se snímky ve viditelném světle (VIS). Spojení obou obrazů do snímku ve falešných barvách může pomoci při studiu podmalby nebo pro identifikaci některých pigmentů. [[1]](#1), [[2]](#2).
 
 Ve výsledném obrazu jsou RGB kanály využity takto:
@@ -60,11 +59,11 @@ Pokud mají oba snímky podobné rysy, je možné transformaci a následné slo�
 
 ## Instalace:
 
-Instalace programovacího jazyka Python3
+Instalace programovacího jazyka **Python3**
 
     https://www.python.org/downloads/
     
-Instalace programu falsevisir
+Instalace programu **FalseVisir**
 
     python -m pip install --upgrade git+https://github.com/almaavu/falsevisir.git#egg=falsevisir
 
