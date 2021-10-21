@@ -58,14 +58,14 @@ CFG = dict(
         # edge = True,  # faster
         edge = False,  # better results? 
         edge_sigma = 2,   
-        low_threshold = 0.05,
-        high_threshold = 0.1,
+        edge_low_threshold = 0.05,
+        edge_high_threshold = 0.1,
         ),
 
 
     extract_features = dict(
-        method="HARRIS",  
-        # method="ORB", 
+        method='HARRIS',  
+        # method='ORB', 
         min_distance = 1,
         threshold_rel = 1e-7,
         patch_size=59,
@@ -100,7 +100,7 @@ CFG = dict(
 # TIMEIT DECORATOR ----------------------------------------
 
 def decorator(d):
-    "Make function d a decorator: d wraps a function fn."
+    'Make function d a decorator: d wraps a function fn.'
     def _d(fn):
         return update_wrapper(d(fn), fn)
     update_wrapper(_d, d)
@@ -108,12 +108,12 @@ def decorator(d):
 
 @decorator
 def timeit(f):
-    """Usage: decorate function with @timeit to log its execution time"""
+    '''Usage: decorate function with @timeit to log its execution time'''
     def new_f(*args, **kwargs):
         bt = time.time()
         r = f(*args, **kwargs)
         et = time.time()
-        logging.debug(f"timeit: {f.__qualname__}: {et - bt:.2f}s")
+        logging.debug(f'timeit: {f.__qualname__}: {et - bt:.2f}s')
         return r
     return new_f
 
@@ -122,20 +122,20 @@ def timeit(f):
 
 def load_image(fpath):
     '''Load image from file to float numpy array.'''
-    logging.info(f"Load image {fpath}")
+    logging.info(f'Load image {fpath}')
     return img_as_float(imread(fpath))
 
 def save_image(fpath, im):
     '''Save numpy array as 8bit image.'''
-    logging.info(f"Save image {fpath}")
+    logging.info(f'Save image {fpath}')
     imwrite(fpath, img_as_ubyte(im))
 
 def show_images(images, labels=None, **kw):
-    """Display images side by side.
+    '''Display images side by side.
     image0, image1, image2, ... : list of ndarrrays
     labels : list
-    """
-    logging.info(f"show images... {labels}")
+    '''
+    logging.info(f'show images... {labels}')
     f, axes = plt.subplots(1, len(images), **kw)
     axes = np.array(axes, ndmin=1)
 
@@ -148,9 +148,9 @@ def show_images(images, labels=None, **kw):
         axes[n].axis('off')
     plt.show()
 
-def info(im, name=""):
+def info(im, name=''):
     '''Print basic numpy array info.'''
-    i = f"shape: {im.shape} dtype: {im.dtype} min--max: {im.min():.3f}--{im.max():.3f}"
+    i = f'shape: {im.shape} dtype: {im.dtype} min--max: {im.min():.3f}--{im.max():.3f}'
     logging.debug(f'info: *** {name} *** ... {info}')
     return i
     
@@ -160,7 +160,7 @@ def info(im, name=""):
 
 def blend_image(vis, irr, weight=.5):
     '''Make weighted average of two images.'''
-    logging.info("Blend images...")
+    logging.info('Blend images...')
     if irr.ndim == 2 :
         irr = np.dstack((irr,irr,irr))          # to grey rgb
     im = (1 - weight) * vis + weight * irr     # weight average
@@ -172,7 +172,7 @@ def false_image(vis, irr):
     irr: grey or RGB image array
     result: image array with channels: IRR, R, G (blue channel is dropped)
     '''
-    logging.info("Make false images...")
+    logging.info('Make false images...')
     if irr.ndim > 2:
         irr = rgb2gray(irr)
     im = np.dstack((irr, vis[:,:,0], vis[:,:,1]))
@@ -190,10 +190,10 @@ def warp_image(images, model_robust):
                         [c, 0],
                         [c, r]])
 
-    logging.debug("warp_corners...")
+    logging.debug('warp_corners...')
     warped_corners = model_robust(corners)
 
-    logging.debug("stack_corners...")
+    logging.debug('stack_corners...')
     all_corners = np.vstack((warped_corners, corners))
 
     corner_min = np.min(all_corners, axis=0)
@@ -202,17 +202,17 @@ def warp_image(images, model_robust):
     output_shape = (corner_max - corner_min)
     output_shape = np.ceil(output_shape[::-1])
 
-    logging.debug("SimilarityTransform....")
+    logging.debug('SimilarityTransform....')
 
     offset = transform.SimilarityTransform(translation=-corner_min)
-    logging.debug(f"{images[1].min(), images[1].max()}")
-    logging.debug("warp... im0")
+    logging.debug(f'{images[1].min(), images[1].max()}')
+    logging.debug('warp... im0')
 
     warp_0 = transform.warp(images[0], offset.inverse,
                        output_shape=output_shape, cval=0)
 
         
-    logging.debug("warp... im1")
+    logging.debug('warp... im1')
     warp_1 = transform.warp(images[1], (model_robust + offset).inverse,
                    output_shape=output_shape, cval=0)
 
@@ -221,10 +221,10 @@ def warp_image(images, model_robust):
 def resize_images(images, new_height=None, **kw):
     '''Resize images to same height.'''
     
-    logging.info(f"Resize images...")
+    logging.info(f'Resize images...')
     heights = [im.shape[0] for im in images]
     new_height = new_height or min(heights)
-    logging.debug(f"image heights {heights} \t  new height {new_height}")
+    logging.debug(f'image heights {heights} \t  new height {new_height}')
     images1 = [transform.resize(im, (new_height, im.shape[1]*new_height//im.shape[0])) for im in images]
     return images1
 
@@ -236,7 +236,7 @@ def transformation_valid(model_robust):
         return False
     
     # check if all parameters are in bounds     
-    mmin, mmax = CFG["model_robust_param_limits"]
+    mmin, mmax = CFG['model_robust_param_limits']
     valid = (model_robust.params > mmin).all() and (model_robust.params < mmax).all()
     
     return valid
@@ -248,31 +248,31 @@ def preprocess_images(images, show=False):
     images_gray = [im[:,:,0] if im.ndim > 2 else im for im in images] # use red channel - most similar to IRR
     
     # SMOOTH
-    sigma = CFG['preprocess_images']["blur_sigma"]
+    sigma = CFG['preprocess_images']['blur_sigma']
     if sigma:
         images_gray = [gaussian_filter(im, sigma=sigma) for im in images_gray]
     
     # NORMALIZE 
-    if CFG['preprocess_images']["normalize"]:
-        logging.debug("apply normalize filter....")
+    if CFG['preprocess_images']['normalize']:
+        logging.debug('apply normalize filter....')
         images_gray = [exposure.rescale_intensity(im, in_range='image', out_range='dtype') for im in images_gray]
     
     # EQUALIZE 
-    if CFG['preprocess_images']["equalize"]:
-        logging.debug("apply equalize filter....")
+    if CFG['preprocess_images']['equalize']:
+        logging.debug('apply equalize filter....')
         images_gray = [exposure.equalize_hist(im) for im in images_gray]
         
     # EDGE DETECTION     
-    if CFG['preprocess_images']["edge"]:
-        sigma = CFG['preprocess_images']["edge_sigma"]
-        low_t = CFG['preprocess_images']["low_threshold"]
-        high_t = CFG['preprocess_images']["high_threshold"]
-        logging.debug("apply edge filter....")
+    if CFG['preprocess_images']['edge']:
+        sigma = CFG['preprocess_images']['edge_sigma']
+        low_t = CFG['preprocess_images']['edge_low_threshold']
+        high_t = CFG['preprocess_images']['edge_high_threshold']
+        logging.debug('apply edge filter....')
         images_gray = [feature.canny(im, sigma=sigma, low_threshold=low_t, high_threshold=high_t) for im in images_gray]
 
         
     if show:
-        show_images(images_gray, labels=["downsized VIS","downsized IR"])
+        show_images(images_gray, labels=['downsized VIS','downsized IR'])
     
     return images_gray
         
@@ -280,7 +280,7 @@ def preprocess_images(images, show=False):
     
 def warp_images(vis, irr, show=False, **kw):
     '''Warp images.'''
-    logging.info("Warp images...")
+    logging.info('Warp images...')
     assert vis.ndim == 3 # RGB
     if irr.ndim > 2:     # RGB or L
         irr = irr[:,:,0]
@@ -290,19 +290,19 @@ def warp_images(vis, irr, show=False, **kw):
     orig_height = images[0].shape[0]
     images_small = resize_images(images, new_height=CFG['downsize'])
     downsize_scale = CFG['downsize'] / orig_height
-    logging.debug("preprocess images...")
+    logging.debug('preprocess images...')
     images_gray = preprocess_images(images_small, show=show)
 
-    logging.debug("find_keypoints...")
+    logging.debug('find_keypoints...')
     keypoints, descriptors = extract(images_gray, **CFG['extract_features'])
-    logging.debug(f"{len(keypoints[0]), len(keypoints[1])}")
+    logging.debug(f'{len(keypoints[0]), len(keypoints[1])}')
 
-    logging.info("Find_matches...")
-    matches = feature.match_descriptors(*descriptors, cross_check=True, **CFG["match"])  # slow
-    logging.debug(f"found: {len(matches)} matches")
+    logging.info('Find_matches...')
+    matches = feature.match_descriptors(*descriptors, cross_check=True, **CFG['match'])  # slow
+    logging.debug(f'found: {len(matches)} matches')
 
     if show:
-        show_matches(images_gray, keypoints, matches, "all matches")
+        show_matches(images_gray, keypoints, matches, 'all matches')
         logging.debug(keypoints)
         logging.debug(matches)
 
@@ -316,12 +316,12 @@ def warp_images(vis, irr, show=False, **kw):
 
        
     if show:
-        show_matches(images_gray, keypoints, matches[inliers], "good matches")
+        show_matches(images_gray, keypoints, matches[inliers], 'good matches')
         
-    logging.debug(f"model robust parameters: {model_robust.params}")
+    logging.debug(f'model robust parameters: {model_robust.params}')
     
     if not transformation_valid(model_robust):
-        raise ValueError("Transformation failed, not enough similar features?")    
+        raise ValueError('Transformation failed, not enough similar features?')    
 #    logging.debug(model_robust)
 
     # RESCALE TRANSFORMATION
@@ -333,18 +333,18 @@ def warp_images(vis, irr, show=False, **kw):
     vis, irr =  warp_image(images, full_tf)
 
     if show:
-        show_images([vis, irr], labels=["VIS","IR"])
+        show_images([vis, irr], labels=['VIS','IR'])
 
     return vis, irr
 
 
-def show_matches(images, keypoints, matches, label=""):
+def show_matches(images, keypoints, matches, label=''):
     '''For debugging only: show matched points of transformation.'''
     from skimage.feature import plot_matches
     fig, ax = plt.subplots(1, 1, figsize=(5, 5))
     plot_matches(ax, *images, *keypoints, matches)
     plt.title(label)
-    plt.axis("off")
+    plt.axis('off')
     plt.show()
 
 
@@ -362,25 +362,25 @@ def select_matches(keypoints, matches, min_samples=4, residual_threshold=3, max_
     return model_robust, inliers
 
 
-def extract(images, method="HARRIS", min_distance = 1, threshold_rel = 1e-7, patch_size=59, **kw):
+def extract(images, method='HARRIS', min_distance = 1, threshold_rel = 1e-7, patch_size=59, **kw):
     '''Find keypoints in both images.'''
-    logging.debug(f"extract images, method: {method}, kw: {kw}")
+    logging.debug(f'extract images, method: {method}, kw: {kw}')
 
     keypoints = []
     descriptors = []
 
-    if method == "ORB":
+    if method == 'ORB':
         orb = feature.ORB(n_keypoints=1000, fast_threshold=0.02)
         for im in images:
             orb.detect_and_extract(im)
             keypoints.append(orb.keypoints)
             descriptors.append(orb.descriptors)
 
-    elif method == "HARRIS":
+    elif method == 'HARRIS':
         # https://www.kite.com/python/docs/skimage.feature.BRIEF
-        brief = feature.BRIEF(patch_size=patch_size, mode="uniform")
+        brief = feature.BRIEF(patch_size=patch_size, mode='uniform')
         for im in images:
-            logging.debug(f"{im.shape}")
+            logging.debug(f'{im.shape}')
             keypoints1 = feature.corner_peaks(feature.corner_harris(im), min_distance=min_distance,
                               threshold_rel=threshold_rel)
             brief.extract(im, keypoints1)
@@ -402,54 +402,54 @@ def process_pair(vi_path, ir_path, show=True, save=True, dst_dir=None):
 
     #   %% Warp images
     vi_image, ir_image = warp_images(vi_image, ir_image, show=False)
-    info(ir_image, "ir_image")
+    info(ir_image, 'ir_image')
 
     #%% Blend images
     blend_im = blend_image(vi_image, ir_image, weight=.5)
-    info(blend_im, "blend_im")
+    info(blend_im, 'blend_im')
 
     #%% False color image
     false_im = false_image(vi_image, ir_image)
-    info(false_im, "false_im")
+    info(false_im, 'false_im')
 
     #%% Show results
     if show:
-        show_images((vi_image, ir_image, blend_im, false_im), labels=("VIS", "IR", "BLEND", "FALSE_COLOR"))
+        show_images((vi_image, ir_image, blend_im, false_im), labels=('VIS', 'IR', 'BLEND', 'FALSE_COLOR'))
 
     #%% Save results
     if save:
         if not dst_dir:
-            dst_dir = vi_path.parent / f"false_color_images"
+            dst_dir = vi_path.parent / f'false_color_images'
         dst_dir.mkdir(exist_ok=True)
 
         # Warped images
-        save_image(dst_dir / f"{ir_path.stem}_{vi_path.stem}_vi_warp.png", vi_image)
-        save_image(dst_dir / f"{ir_path.stem}_{vi_path.stem}_ir_warp.png", ir_image)
+        save_image(dst_dir / f'{ir_path.stem}_{vi_path.stem}_vi_warp.png', vi_image)
+        save_image(dst_dir / f'{ir_path.stem}_{vi_path.stem}_ir_warp.png', ir_image)
 
         # Blended images
-        save_image(dst_dir / f"{ir_path.stem}_{vi_path.stem}_blend.png", blend_im)
-        save_image(dst_dir / f"{ir_path.stem}_{vi_path.stem}_falsecolor.png", false_im)
+        save_image(dst_dir / f'{ir_path.stem}_{vi_path.stem}_blend.png', blend_im)
+        save_image(dst_dir / f'{ir_path.stem}_{vi_path.stem}_falsecolor.png', false_im)
 
 
 
 #%% Main program =============================================================================================
 
-if __name__ == "__main__":
+if __name__ == '__main__':
 
     # LOGLEVEL = logging.DEBUG
     LOGLEVEL = logging.INFO
-    SAMPLES = ("samples/vis_samples/a001_vis_image.jpg", "samples/ir_samples/a001_ir_image.jpg")
+    SAMPLES = ('samples/vis_samples/a001_vis_image.jpg', 'samples/ir_samples/a001_ir_image.jpg')
 
     logging.basicConfig(
         level=LOGLEVEL, format='!%(levelno)s [%(module)10s %(lineno)4d]\t%(message)s')
     logging.getLogger('matplotlib.font_manager').disabled = True
-    logging.debug(f"Script started...")
+    logging.debug(f'Script started...')
     start = time.time()
     
     im_paths = sys.argv[1:3] if len(sys.argv) == 3 else SAMPLES
     im_paths = [Path(fp) for fp in im_paths]
     vi_path, ir_path = im_paths
 
-    process_pair(vi_path, ir_path, show=True, save=True, dst_dir=vi_path.parent.parent / "false_color_results")
+    process_pair(vi_path, ir_path, show=True, save=True, dst_dir=vi_path.parent.parent / 'false_color_results')
 
-    logging.debug(f"Script finished in {time.time() - start:.1f} s")
+    logging.debug(f'Script finished in {time.time() - start:.1f} s')
