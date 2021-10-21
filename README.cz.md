@@ -121,6 +121,10 @@ Kontrola průběhu transformace:
 
 <img src="samples/jupyter/jupyter_sample2.png" width="800" title="">
 
+Nezdařená transformace při nastavení parametru preprocess_images - edge:
+
+<img src="samples/jupyter/jupyter_sample3.png" width="800" title="">
+
 
 
 
