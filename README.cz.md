@@ -141,6 +141,7 @@ Parametry jsou uloženy v globální proměnné CFG. Jejich úprava může být 
 - match: parametry match algoritmu
 
 Výchozí konfigurace:
+```
     {'downsize': 500,
      'extract_features': {'method': 'HARRIS',
                           'min_distance': 1,
@@ -160,7 +161,7 @@ Výchozí konfigurace:
                            'equalize': False,
                            'normalize': True},
      'ransac': {'max_trials': 10000, 'min_samples': 5, 'residual_threshold': 10}}
-
+```
 
 ### Výstup:
 - Snímek ve falešných barvách
