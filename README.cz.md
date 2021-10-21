@@ -96,7 +96,7 @@ Program je také možné spustit interaktivně v prostředí **Jupyter notebook*
     jupyter notebook falsevisir_jupyter.ipynb
 
 Kontrola průběhu transformace v prostředí Jupeter notebook:
-<img src="samples/jupyter/jupyter_sample.png" width="150" title="">
+<img src="samples/jupyter/jupyter_sample.png" width="350" title="">
 
 
 Program **falsevisir_batch.py** je určený pro hromadné zpracování většího počtu obrázků. Program načte snímky ze zvolených složek a zpracuje páry souborů podle ID souborů, které musí být uvedeno na začátku názvu následované podtržítkem. Zpracuje např. soubory "a001_vis_image.jpg" a "a001_ir_image.jpg". 
