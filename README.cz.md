@@ -83,7 +83,9 @@ Instalace knihoven:
 
 ## Použití:
 
-Program lze spustit z **příkazového řádku** se zadáním cesty ke vstupním souborům - obrázku ve viditelném a infračerveném světle.
+### Příkazový řádek
+
+Program lze spustit z příkazového řádku se zadáním cesty ke vstupním souborům - obrázku ve viditelném a infračerveném světle.
 
     python -m falsevisir "vis_soubor.jpg" "ir_soubor.jpg"  
     
@@ -91,7 +93,12 @@ Skript je možné spustit i bez instalace:
 
     python falsevisir.py "vis_soubor.jpg" "ir_soubor.jpg" 
 
-Program je také možné spustit interaktivně v prostředí **Jupyter notebook**, to je výhodné v případě, kdy je potřeba sledovat jednotlivé kroky zpracování obrazů, např. při úpravě  nastavení konfigurace programu. 
+### Vstupní data:
+Cesta a název souboru snímku ve viditelném světla (formát RGB) a infračerveného snímku (formát RGB nebo stupně šedé). Snímky by měly být oříznuté na přibližně stejný výřez (bez přehnaně širokých okrajů). Mohou být různě pootočené (viz ukázky).
+
+### Jupyter notebook
+
+Program je také možné spustit interaktivně v prostředí Jupyter notebook, to je výhodné v případě, kdy je potřeba sledovat jednotlivé kroky zpracování obrazů, např. při úpravě  nastavení konfigurace programu. 
 
     jupyter notebook falsevisir_jupyter.ipynb
 
@@ -104,8 +111,7 @@ Program **falsevisir_batch.py** je určený pro hromadné zpracování většíh
 
     python falsevisir_batch.py "samples/vis_samples/" "samples/ir_samples/"  
 
-### Vstupní data:
-Cesta a název souboru snímku ve viditelném světla (formát RGB) a infračerveného snímku (formát RGB nebo stupně šedé). Snímky by měly být oříznuté na přibližně stejný výřez (bez přehnaně širokých okrajů). Mohou být různě pootočené (viz ukázky).
+
 
 ### Funkce programu:
 - Změna velikosti obrázků na stejnou výšku
