@@ -36,14 +36,14 @@ Příklad složení snímku v infračerveném světle s červeným a zeleným ka
       <TD><img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp_2.png" width="150"></TD>
    </TR>
       <TR>
-      <TD>FALSE COLOR R G B</TD>
+      <TD>False color R G B</TD>
       <TD><img src="samples/false_color_results/a002_s002__TL_a002_palette_ir_warp.png" width="150"></TD>
       <TD><img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp_0.png" width="150"></TD>
       <TD><img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp_1.png" width="150"></TD>
       <TD></TD>
    </TR>
    <TR>
-      <TD>FALSE COLOR</TD>
+      <TD>False color</TD>
       <TD colspan="3" align="center" style="text-align: center; vertical-align: middle;"><img src="samples/false_color_results/a002_s002__TL_a002_palette_falsecolor.png" width="150"></TD>
       <TD></TD>
    </TR>
