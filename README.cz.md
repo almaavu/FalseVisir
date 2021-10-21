@@ -16,7 +16,7 @@ Ve výsledném obrazu jsou RGB kanály využity takto:
     Vis B ->  
 ```
 
-
+Příklad složení snímku v infračerveném světle s červeným a zeleným kanálem snímku ve viditelném světle:
 <TABLE>
    <TR>
       <TD>IR</TD>
