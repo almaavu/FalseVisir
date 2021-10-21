@@ -1,5 +1,5 @@
 
-# falsevisir
+# FalseVisIr
 https://github.com/almaavu/falsevisir
 
 **Program pro automatické vytvoření obrazu ve falešných barvách spojením snímků ve viditelném a infračerveném světle.**
@@ -52,7 +52,7 @@ Příklad složení snímku v infračerveném světle s červeným a zeleným ka
 
 
 
-Pro složení snímků jsou obvykle využívány grafické editory (Adobe Photoshop, GIMP, ...). Snímky jsou zobrazeny přes sebe, pro přesný překryv je obvykle je nutné je transformovat a napravit tak zkreslení způsobené rozdíly v geometrii zobrazení a použitých objektivech. 
+Pro složení snímků jsou obvykle využívány grafické editory (Adobe Photoshop, GIMP, ...). Snímky jsou zobrazeny přes sebe, pro přesný překryv je obvykle je nutné je transformovat a napravit tak zkreslení způsobené rozdíly v geometrii zobrazení (natočení, perspektivní zkreslení) a použitých objektivech (soudkovité zkreslení). 
 
 Pokud mají oba snímky podobné rysy, je možné je provést transformaci a následné složení do falešných barev automaticky. To je výhodné zejména při zpracování většího počtu snímků.   
 
