@@ -93,8 +93,17 @@ Skript je možné spustit i bez instalace:
 
     python falsevisir.py "vis_soubor.jpg" "ir_soubor.jpg" 
 
-### Vstupní data:
+#### Vstupní data:
 Cesta a název souboru snímku ve viditelném světla (formát RGB) a infračerveného snímku (formát RGB nebo stupně šedé). Snímky by měly být oříznuté na přibližně stejný výřez (bez přehnaně širokých okrajů). Mohou být různě pootočené (viz ukázky).
+
+
+#### Hromadné zpracování:
+
+Program **falsevisir_batch.py** je určený pro hromadné zpracování většího počtu obrázků. Program načte snímky ze zvolených složek a zpracuje páry souborů podle ID souborů, které musí být uvedeno na začátku názvu následované podtržítkem. Zpracuje např. soubory "a001_vis_image.jpg" a "a001_ir_image.jpg". 
+
+    python falsevisir_batch.py "samples/vis_samples/" "samples/ir_samples/"  
+
+
 
 ### Jupyter notebook
 
@@ -106,10 +115,6 @@ Kontrola průběhu transformace v prostředí Jupyter notebook:
 
 <img src="samples/jupyter/jupyter_sample.png" width="600" title="">
 
-
-Program **falsevisir_batch.py** je určený pro hromadné zpracování většího počtu obrázků. Program načte snímky ze zvolených složek a zpracuje páry souborů podle ID souborů, které musí být uvedeno na začátku názvu následované podtržítkem. Zpracuje např. soubory "a001_vis_image.jpg" a "a001_ir_image.jpg". 
-
-    python falsevisir_batch.py "samples/vis_samples/" "samples/ir_samples/"  
 
 
 
