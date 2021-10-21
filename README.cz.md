@@ -83,7 +83,7 @@ Instalace knihoven:
 
 ## Použití:
 
-Program lze spustit z příkazového řádku se zadáním cesty ke vstupním souborům - obrázku ve viditelném a infračerveném světle.
+Program lze spustit z **příkazového řádku** se zadáním cesty ke vstupním souborům - obrázku ve viditelném a infračerveném světle.
 
     python -m falsevisir "vis_soubor.jpg" "ir_soubor.jpg"  
     
@@ -91,11 +91,11 @@ Skript je možné spustit i bez instalace:
 
     python falsevisir.py "vis_soubor.jpg" "ir_soubor.jpg" 
 
-Program je také možné spustit interaktivně v prostředí Jupyter notebook:
+Program je také možné spustit interaktivně v prostředí **Jupyter notebook**:
 
     jupyter notebook falsevisir_jupyter.ipynb
 
-Program falsevisir_batch.py je určený pro hromadné zpracování většího počtu obrázků. Program načte snímky ze zvolených složek a zpracuje páry souborů podle ID souborů, které musí být uvedeno na začátku názvu následované podtržítkem. Zpracuje např. soubory "a001_vis_image.jpg" a "a001_ir_image.jpg". 
+Program **falsevisir_batch.py** je určený pro hromadné zpracování většího počtu obrázků. Program načte snímky ze zvolených složek a zpracuje páry souborů podle ID souborů, které musí být uvedeno na začátku názvu následované podtržítkem. Zpracuje např. soubory "a001_vis_image.jpg" a "a001_ir_image.jpg". 
 
     python falsevisir_batch.py "samples/vis_samples/" "samples/ir_samples/"  
 
