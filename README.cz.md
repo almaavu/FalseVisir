@@ -211,7 +211,7 @@ https://en.wikipedia.org/wiki/Affine_transformation
 
 ---
 
-_Software je výsledkem projektu NAKI II: DG16P02R017_
+_Software je výsledkem projektu NAKI II:  Neinvazivní výzkum portrétních miniatur pro účely jejich datace, autentikace, prezentace a ochrany, číslo projektu: DG18P02OVV034_
 
 
 
