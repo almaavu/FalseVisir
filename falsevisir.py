@@ -41,7 +41,7 @@ import skimage as sk
 from skimage import img_as_float, img_as_ubyte
 from skimage.color import rgb2gray
 from skimage import transform, exposure, feature
-
+from scipy.ndimage.filters import gaussian_filter
 
 
 
@@ -50,12 +50,16 @@ CFG = dict(
     downsize = 500,
 
     preprocess_images = dict(
+        blur_sigma = 2,
         # equalize = True, # same speed, same results?
         equalize = False,
         normalize = True, # same speed, same results?
         # normalize = False, 
         # edge = True,  # faster
         edge = False,  # better results? 
+        edge_sigma = 2,   
+        low_threshold = 0.05,
+        high_threshold = 0.1,
         ),
 
 
@@ -68,9 +72,9 @@ CFG = dict(
         ),
 
     ransac = dict(
-        residual_threshold = 1,   
-        min_samples = 10,
-        max_trials = 800,
+        residual_threshold = 10,   # higher - more good matches will be found, longer time?
+        min_samples = 5,
+        max_trials = 10000,
         ),
 
     match = dict(
@@ -240,7 +244,13 @@ def transformation_valid(model_robust):
 def preprocess_images(images, show=False):
     
     # TO GRAY 
-    images_gray = [rgb2gray(im) if im.ndim > 2 else im for im in images]
+    # images_gray = [rgb2gray(im) if im.ndim > 2 else im for im in images]
+    images_gray = [im[:,:,0] if im.ndim > 2 else im for im in images] # use red channel - most similar to IRR
+    
+    # SMOOTH
+    sigma = CFG['preprocess_images']["blur_sigma"]
+    if sigma:
+        images_gray = [gaussian_filter(im, sigma=sigma) for im in images_gray]
     
     # NORMALIZE 
     if CFG['preprocess_images']["normalize"]:
@@ -254,9 +264,13 @@ def preprocess_images(images, show=False):
         
     # EDGE DETECTION     
     if CFG['preprocess_images']["edge"]:
+        sigma = CFG['preprocess_images']["edge_sigma"]
+        low_t = CFG['preprocess_images']["low_threshold"]
+        high_t = CFG['preprocess_images']["high_threshold"]
         logging.debug("apply edge filter....")
-        images_gray = [feature.canny(im, sigma=2, low_threshold=.05, high_threshold=.1) for im in images_gray]
-    
+        images_gray = [feature.canny(im, sigma=sigma, low_threshold=low_t, high_threshold=high_t) for im in images_gray]
+
+        
     if show:
         show_images(images_gray, labels=["downsized VIS","downsized IR"])
     
@@ -300,12 +314,14 @@ def warp_images(vis, irr, show=False, **kw):
             (src_keys, dst_keys),
             transform.ProjectiveTransform, **CFG['ransac'])
 
-    logging.debug(f"model robust parameters: {model_robust.params}")
-    if not transformation_valid(model_robust):
-        raise ValueError("Transformation failed, not enough similar features?")
-        
-    if show == logging.DEBUG:
+       
+    if show:
         show_matches(images_gray, keypoints, matches[inliers], "good matches")
+        
+    logging.debug(f"model robust parameters: {model_robust.params}")
+    
+    if not transformation_valid(model_robust):
+        raise ValueError("Transformation failed, not enough similar features?")    
 #    logging.debug(model_robust)
 
     # RESCALE TRANSFORMATION

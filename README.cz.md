@@ -15,6 +15,42 @@ Ve výsledném obrazu jsou RGB kanály využity takto:
     Vis G -> B
     Vis B ->  
 ```
+
+
+<TABLE>
+   <TR>
+      <TD>IR</TD>
+      <TD><img src="samples/false_color_results/a002_s002__TL_a002_palette_ir_warp.png" width="150"></TD>
+      <TD></TD>
+      <TD></TD>
+      <TD></TD>
+   </TR>
+   <TR>
+      <TD>VIS</TD>
+      <TD></TD>
+      <TD></TD>
+      <TD><img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp.png" width="150"></TD>
+      <TD></TD>
+   </TR>
+   <TR>
+      <TD>R G B</TD>  
+      <TD></TD>
+      <TD><img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp_0.png" width="150"></TD>
+      <TD><img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp_1.png" width="150"></TD>
+      <TD><img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp_2.png" width="150"></TD>
+   </TR>
+   <TR>
+      <TD>FALSE COLOR</TD>
+      <TD><img src="samples/false_color_results/a002_s002__TL_a002_palette_falsecolor.png" width="150"></TD>
+      <TD></TD>
+      <TD></TD>
+      <TD></TD>
+   </TR>
+</TABLE>
+
+
+
+
 Pro složení snímků jsou obvykle využívány grafické editory (Adobe Photoshop, GIMP, ...). Snímky jsou zobrazeny přes sebe, pro přesný překryv je obvykle je nutné je transformovat a napravit tak zkreslení způsobené rozdíly v geometrii zobrazení a použitých objektivech. 
 
 Pokud mají oba snímky podobné rysy, je možné je provést transformaci a následné složení do falešných barev automaticky. To je výhodné zejména při zpracování většího počtu snímků.   
