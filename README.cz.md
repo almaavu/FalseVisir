@@ -146,16 +146,15 @@ Parametry jsou uloženy v globální proměnné CFG. Jejich úprava může být 
 
 Výchozí konfigurace:
 ```
-    {'downsize': 500,
+    CFG = {
+     'downsize': 500,
      'extract_features': {'method': 'HARRIS',
                           'min_distance': 1,
                           'patch_size': 59,
                           'threshold_rel': 1e-07},
      'irr_weight': 0.5,
      'match': {'max_distance': 200},
-     'model_robust_param_limits': [[[-10, -1, -100],
-                                    [-1, -2, -100],
-                                    [-0.1, -0.02, 0]],
+     'model_robust_param_limits': [[[-10, -1, -100], [-1, -2, -100], [-0.1, -0.02, 0]],
                                    [[10, 1, 100], [1, 2, 100], [0.1, 0.02, 2]]],
      'preprocess_images': {'blur_sigma': 2,
                            'edge': False,
@@ -164,7 +163,8 @@ Výchozí konfigurace:
                            'edge_sigma': 2,
                            'equalize': False,
                            'normalize': False},
-     'ransac': {'max_trials': 10000, 'min_samples': 5, 'residual_threshold': 10}}
+     'ransac': {'max_trials': 10000, 'min_samples': 5, 'residual_threshold': 10}
+    }
 ```
 
 ### Výstup:
