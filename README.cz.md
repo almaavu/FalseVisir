@@ -33,7 +33,7 @@ Ve výsledném obrazu jsou RGB kanály využity takto:
       <TD></TD>
    </TR>
    <TR>
-      <TD>R G B</TD>  
+      <TD>VIS -> R G B</TD>  
       <TD></TD>
       <TD><img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp_0.png" width="150"></TD>
       <TD><img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp_1.png" width="150"></TD>
@@ -41,8 +41,8 @@ Ve výsledném obrazu jsou RGB kanály využity takto:
    </TR>
    <TR>
       <TD>FALSE COLOR</TD>
-      <TD><img src="samples/false_color_results/a002_s002__TL_a002_palette_falsecolor.png" width="150"></TD>
       <TD></TD>
+      <TD><img src="samples/false_color_results/a002_s002__TL_a002_palette_falsecolor.png" width="150"></TD>
       <TD></TD>
       <TD></TD>
    </TR>
