@@ -4,6 +4,49 @@ https://github.com/almaavu/falsevisir
 **Combine infrared and visible light images of the same object to false colors automatically.**
 
 
+Visible image RGB channels and infrared image are combined in this way:
+```
+    IRR   -> R
+    Vis R -> G
+    Vis G -> B
+    Vis B ->  
+```
+
+Example of IRR and VIS R + G channel merge:
+<TABLE>
+   <TR>
+      <TD>IRR</TD>
+      <TD><img src="samples/false_color_results/a002_s002__TL_a002_palette_ir_warp.png" width="150"></TD>
+      <TD colspan="3" align="center" style="text-align: center; vertical-align: middle;"></TD>
+   </TR>
+   <TR>
+      <TD>VIS</TD>
+      <TD></TD>
+      <TD colspan="3" align="center" style="text-align: center; vertical-align: middle;"><img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp.png" width="150"></TD>
+   </TR>
+   <TR>
+      <TD>VIS R G B</TD>  
+      <TD></TD>
+      <TD><img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp_0.png" width="150"></TD>
+      <TD><img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp_1.png" width="150"></TD>
+      <TD><img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp_2.png" width="150"></TD>
+   </TR>
+      <TR>
+      <TD>False color R G B</TD>
+      <TD><img src="samples/false_color_results/a002_s002__TL_a002_palette_ir_warp.png" width="150"></TD>
+      <TD><img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp_0.png" width="150"></TD>
+      <TD><img src="samples/false_color_results/a002_s002__TL_a002_palette_vi_warp_1.png" width="150"></TD>
+      <TD></TD>
+   </TR>
+   <TR>
+      <TD>False color</TD>
+      <TD colspan="3" align="center" style="text-align: center; vertical-align: middle;"><img src="samples/false_color_results/a002_s002__TL_a002_palette_falsecolor.png" width="150"></TD>
+      <TD></TD>
+   </TR>
+</TABLE>
+
+
+
 ---
 
 ## Install:
