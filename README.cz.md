@@ -209,6 +209,10 @@ https://en.wikipedia.org/wiki/False_color
 <a id="3">[3]</a> 
 https://en.wikipedia.org/wiki/Affine_transformation
 
+
+
+### Licence:
+Program je uvolněn pod licencí GNU General Public License 3.0 (GNU GPL), lze jej používat zdarma pro soukromé i pro komerční účely. 
 ---
 
 _Software je výsledkem projektu NAKI II:  Neinvazivní výzkum portrétních miniatur pro účely jejich datace, autentikace, prezentace a ochrany, číslo projektu: DG18P02OVV034_
