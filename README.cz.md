@@ -57,6 +57,13 @@ Pokud mají oba snímky podobné rysy, je možné transformaci a následné slo�
 
 ---
 
+### Licence:
+
+Program je uvolněn pod licencí GNU General Public License 3.0 (GNU GPL), lze jej používat zdarma pro soukromé i pro komerční účely. 
+https://cs.wikipedia.org/wiki/GNU_General_Public_License
+
+---
+
 ## Instalace:
 
 Instalace programovacího jazyka **Python3**
@@ -211,10 +218,7 @@ https://en.wikipedia.org/wiki/Affine_transformation
 
 
 
-### Licence:
 
-Program je uvolněn pod licencí GNU General Public License 3.0 (GNU GPL), lze jej používat zdarma pro soukromé i pro komerční účely. 
-https://cs.wikipedia.org/wiki/GNU_General_Public_License
 
 ---
 
