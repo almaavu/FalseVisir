@@ -55,12 +55,6 @@ Pro složení snímků jsou obvykle využívány grafické editory (Adobe Photos
 
 Pokud mají oba snímky podobné rysy, je možné transformaci a následné složení do falešných barev provést automaticky programem FalseVisir. To je výhodné zejména při zpracování většího počtu snímků.   
 
----
-
-### Licence:
-
-Program je uvolněn pod licencí GNU General Public License 3.0 (GNU GPL), lze jej používat zdarma pro soukromé i pro komerční účely. 
-https://cs.wikipedia.org/wiki/GNU_General_Public_License
 
 ---
 
@@ -85,6 +79,13 @@ Instalace knihoven:
 * scikit-image
 * scipy
 * imageio
+
+---
+
+### Licence:
+
+Program je uvolněn pod licencí GNU General Public License 3.0 (GNU GPL), lze jej používat zdarma pro soukromé i pro komerční účely. 
+https://cs.wikipedia.org/wiki/GNU_General_Public_License
 
 ---
 
