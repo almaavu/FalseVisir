@@ -1,5 +1,5 @@
 
-# FalseVisir
+# Alma FalseVisir
 https://github.com/almaavu/falsevisir
 
 **Program pro automatické vytvoření obrazu ve falešných barvách spojením snímků ve viditelném a infračerveném světle.**
