@@ -101,7 +101,7 @@ Skript je možné spustit i bez instalace:
 
     python falsevisir.py "vis_soubor.jpg" "ir_soubor.jpg" 
     
-Program je také možné začlenit jako knihovnu do jiného programu:
+Program je také možné začlenit jako knihovnu do jiného programu v jazyce Python3:
     
     from falsevisir import process_pair
     process_pair("vis_soubor.jpg", ir_soubor.jpg, show=False, save=True, cfg=CFG)    
