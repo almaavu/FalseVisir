@@ -3,6 +3,7 @@ https://github.com/almaavu/falsevisir
 
 **Combine infrared and visible light images of the same object to false colors automatically.**
 
+False colour imaging is an image processing technique used in the study of works of art (e.g. paintings on canvas, wood, wall paintings or polychrome sculptures). For evaluation, it is useful to compare images obtained by infrared reflectance (IRR) with visible light (VIS) images. Combining the two images into a false-colour image can help in the study of underpainting or for the identification of certain pigments.
 
 Visible image RGB channels and infrared image are combined in this way:
 ```
@@ -46,29 +47,38 @@ Example of IRR and VIS R + G channel merge:
 </TABLE>
 
 
+Graphic editors (Adobe Photoshop, GIMP, ...) are usually used to compose images. The images are displayed over each other, and for an accurate overlay it is usually necessary to transform them to correct distortions caused by differences in the display geometry (rotation, perspective distortion) and the lenses used (barrel distortion).
+
+If both images have similar features, the transformation and subsequent compositing into false colours can be done automatically by the FalseVisir program. This is particularly advantageous when processing a large number of images.
+
 
 ---
 
 ## Install:
 
-Python3
+Python3 programming language
 
     https://www.python.org/downloads/
     
-FalseVisir
+Installation of FalseVisir
 
     python -m pip install --upgrade git+https://github.com/almaavu/falsevisir.git#egg=falsevisir
 
-Dependencies:
+Installation of dependencies:
 
     python -m pip install --upgrade requirements.txt
     
 * numpy
 * matplotlib
 * scikit-image
+* scipy
 * imageio
 
 ---
+
+### Licence:
+
+The program is released under the GNU General Public License 3.0 (GNU GPL), and is free to use for private and commercial purposes. https://cs.wikipedia.org/wiki/GNU_General_Public_License
 
 
 
