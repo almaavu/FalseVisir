@@ -101,10 +101,7 @@ Skript je možné spustit i bez instalace:
 
     python falsevisir.py "vis_soubor.jpg" "ir_soubor.jpg" 
     
-Program je také možné začlenit jako knihovnu do jiného programu v jazyce Python3:
-    
-    from falsevisir import process_pair
-    process_pair("vis_soubor.jpg", ir_soubor.jpg, show=False, save=True, cfg=CFG)    
+  
 
 #### Vstupní data:
 Cesta a název souboru snímku ve viditelném světla (formát RGB) a infračerveného snímku (formát RGB nebo stupně šedé). Snímky by měly být oříznuté na přibližně stejný výřez (bez přehnaně širokých okrajů). Mohou být různě pootočené (viz ukázky).
@@ -139,7 +136,14 @@ Nezdařená transformace při nastavení parametru preprocess_images - edge:
 <img src="samples/jupyter/jupyter_sample3.png" width="800" title="">
 
 
+### Použití ve formě knihovny
 
+Program je možné začlenit jako knihovnu do jiného programu v jazyce Python3:
+    
+    from falsevisir import process_pair
+    process_pair("vis_soubor.jpg", ir_soubor.jpg, show=False, save=True, cfg=CFG) 
+    
+Ukázka importu: [falsevisir_batch.py](falsevisir_batch.py)    
 
 ### Funkce programu:
 - Změna velikosti obrázků na stejnou výšku
