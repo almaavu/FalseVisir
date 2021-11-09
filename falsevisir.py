@@ -33,6 +33,7 @@ from pathlib import Path
 import logging
 import time
 from functools import update_wrapper
+import json
 
 from imageio import imwrite, imread
 import numpy as np
@@ -44,8 +45,19 @@ from skimage import transform, exposure, feature
 from scipy.ndimage.filters import gaussian_filter
 
 
+# CONFIG ---------------
 
-CFG = dict(
+
+def save_config(cfg):
+    with open(cfg_FILE, "w") as f:
+        json.dump(cfg, f, indent=4)     
+           
+def load_config(cfg):
+    with open(cfg_FILE) as f:
+        return json.load(f)  
+        
+
+DEFAULT_cfg = dict(
     
     downsize = 500,
 
@@ -94,9 +106,14 @@ CFG = dict(
                                      ]
     )
 
+cfg_FILE = Path(__file__).with_suffix(".json")
 
 
+cfg = load_config(cfg_FILE) if cfg_FILE.is_file() else DEFAULT_cfg
+print(cfg)
 
+    
+    
 # TIMEIT DECORATOR ----------------------------------------
 
 def decorator(d):
@@ -154,8 +171,8 @@ def info(im, name=''):
     logging.debug(f'info: *** {name} *** ... {info}')
     return i
     
-    
 
+        
 # OVERLAY IMAGES ----------------------------------------
 
 def blend_image(vis, irr, weight=.5):
@@ -229,46 +246,42 @@ def resize_images(images, new_height=None, **kw):
     return images1
 
 
-def transformation_valid(model_robust):
+def transformation_valid(model_robust, valid_params):
     '''Check if transformation was found and is withing allowed bounds (prevent excessive deformation).'''
     
     if np.isnan(model_robust.params).any():
         return False
     
     # check if all parameters are in bounds     
-    mmin, mmax = CFG['model_robust_param_limits']
+    mmin, mmax = valid_params
     valid = (model_robust.params > mmin).all() and (model_robust.params < mmax).all()
     
     return valid
   
-def preprocess_images(images, show=False):
+def preprocess_images(images, blur_sigma=None, normalize=None, equalize=None, edge=None, edge_sigma=None, edge_low_threshold=None,  edge_high_threshold=None, show=False):
     
     # TO GRAY 
     # images_gray = [rgb2gray(im) if im.ndim > 2 else im for im in images]
     images_gray = [im[:,:,0] if im.ndim > 2 else im for im in images] # use red channel - most similar to IRR
     
     # SMOOTH
-    sigma = CFG['preprocess_images']['blur_sigma']
-    if sigma:
-        images_gray = [gaussian_filter(im, sigma=sigma) for im in images_gray]
+    if blur_sigma:
+        images_gray = [gaussian_filter(im, sigma=blur_sigma) for im in images_gray]
     
     # NORMALIZE 
-    if CFG['preprocess_images']['normalize']:
+    if normalize:
         logging.debug('apply normalize filter....')
         images_gray = [exposure.rescale_intensity(im, in_range='image', out_range='dtype') for im in images_gray]
     
     # EQUALIZE 
-    if CFG['preprocess_images']['equalize']:
+    if equalize:
         logging.debug('apply equalize filter....')
         images_gray = [exposure.equalize_hist(im) for im in images_gray]
         
     # EDGE DETECTION     
-    if CFG['preprocess_images']['edge']:
-        sigma = CFG['preprocess_images']['edge_sigma']
-        low_t = CFG['preprocess_images']['edge_low_threshold']
-        high_t = CFG['preprocess_images']['edge_high_threshold']
+    if edge:
         logging.debug('apply edge filter....')
-        images_gray = [feature.canny(im, sigma=sigma, low_threshold=low_t, high_threshold=high_t) for im in images_gray]
+        images_gray = [feature.canny(im, sigma=edge_sigma, low_threshold=edge_low_threshold, high_threshold=edge_high_threshold) for im in images_gray]
 
         
     if show:
@@ -278,7 +291,7 @@ def preprocess_images(images, show=False):
         
     
     
-def warp_images(vis, irr, show=False, **kw):
+def warp_images(vis, irr, cfg, show=False, **kw):
     '''Warp images.'''
     logging.info('Warp images...')
     assert vis.ndim == 3 # RGB
@@ -288,17 +301,17 @@ def warp_images(vis, irr, show=False, **kw):
     images = vis, irr
 
     orig_height = images[0].shape[0]
-    images_small = resize_images(images, new_height=CFG['downsize'])
-    downsize_scale = CFG['downsize'] / orig_height
+    images_small = resize_images(images, new_height=cfg['downsize'])
+    downsize_scale = cfg['downsize'] / orig_height
     logging.debug('preprocess images...')
-    images_gray = preprocess_images(images_small, show=show)
+    images_gray = preprocess_images(images_small, show=show, **cfg['preprocess_images'])
 
     logging.debug('find_keypoints...')
-    keypoints, descriptors = extract(images_gray, **CFG['extract_features'])
+    keypoints, descriptors = extract(images_gray, **cfg['extract_features'])
     logging.debug(f'{len(keypoints[0]), len(keypoints[1])}')
 
     logging.info('Find_matches...')
-    matches = feature.match_descriptors(*descriptors, cross_check=True, **CFG['match'])  # slow
+    matches = feature.match_descriptors(*descriptors, cross_check=True, **cfg['match'])  # slow
     logging.debug(f'found: {len(matches)} matches')
 
     if show:
@@ -312,7 +325,7 @@ def warp_images(vis, irr, show=False, **kw):
 
     model_robust, inliers = sk.measure.ransac(
             (src_keys, dst_keys),
-            transform.ProjectiveTransform, **CFG['ransac'])
+            transform.ProjectiveTransform, **cfg['ransac'])
 
        
     if show:
@@ -320,7 +333,7 @@ def warp_images(vis, irr, show=False, **kw):
         
     logging.debug(f'model robust parameters: {model_robust.params}')
     
-    if not transformation_valid(model_robust):
+    if not transformation_valid(model_robust, cfg['model_robust_param_limits']):
         raise ValueError('Transformation failed, not enough similar features?')    
 #    logging.debug(model_robust)
 
@@ -391,7 +404,7 @@ def extract(images, method='HARRIS', min_distance = 1, threshold_rel = 1e-7, pat
 
 
 
-def process_pair(vi_path, ir_path, show=True, save=True, dst_dir=None):
+def process_pair(vi_path, ir_path, cfg, show=True, save=True, dst_dir=None):
     
    #%% Load images
 
@@ -401,7 +414,7 @@ def process_pair(vi_path, ir_path, show=True, save=True, dst_dir=None):
     vi_image, ir_image = resize_images((vi_image, ir_image))
 
     #   %% Warp images
-    vi_image, ir_image = warp_images(vi_image, ir_image, show=False)
+    vi_image, ir_image = warp_images(vi_image, ir_image, cfg=cfg, show=False)
     info(ir_image, 'ir_image')
 
     #%% Blend images
@@ -419,7 +432,7 @@ def process_pair(vi_path, ir_path, show=True, save=True, dst_dir=None):
     #%% Save results
     if save:
         if not dst_dir:
-            dst_dir = vi_path.parent / f'false_color_images'
+            dst_dir = vi_path.parent.parent / 'false_color_results'
         dst_dir.mkdir(exist_ok=True)
 
         # Warped images
@@ -450,6 +463,6 @@ if __name__ == '__main__':
     im_paths = [Path(fp) for fp in im_paths]
     vi_path, ir_path = im_paths
 
-    process_pair(vi_path, ir_path, show=True, save=True, dst_dir=vi_path.parent.parent / 'false_color_results')
+    process_pair(vi_path, ir_path, show=True, save=True, cfg=cfg)
 
     logging.debug(f'Script finished in {time.time() - start:.1f} s')

@@ -1,0 +1,63 @@
+{
+  "downsize": 500,
+  "preprocess_images": {
+    "blur_sigma": 2,
+    "equalize": false,
+    "normalize": false,
+    "edge": false,
+    "edge_sigma": 2,
+    "edge_low_threshold": 0.05,
+    "edge_high_threshold": 0.1
+  },
+  "extract_features": {
+    "method": "HARRIS",
+    "min_distance": 1,
+    "threshold_rel": 1e-07,
+    "patch_size": 59
+  },
+  "ransac": {
+    "residual_threshold": 10,
+    "min_samples": 5,
+    "max_trials": 10000
+  },
+  "match": {
+    "max_distance": 200
+  },
+  "irr_weight": 0.5,
+  "model_robust_param_limits": [
+    [
+      [
+        -10,
+        -1,
+        -100
+      ],
+      [
+        -1,
+        -2,
+        -100
+      ],
+      [
+        -0.1,
+        -0.02,
+        0
+      ]
+    ],
+    [
+      [
+        10,
+        1,
+        100
+      ],
+      [
+        1,
+        2,
+        100
+      ],
+      [
+        0.1,
+        0.02,
+        2
+      ]
+    ]
+  ]
+}
