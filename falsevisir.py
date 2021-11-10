@@ -44,76 +44,10 @@ from skimage.color import rgb2gray
 from skimage import transform, exposure, feature
 from scipy.ndimage.filters import gaussian_filter
 
-
-# CONFIG ---------------
-
-
-def save_config(cfg):
-    with open(cfg_FILE, "w") as f:
-        json.dump(cfg, f, indent=4)     
-           
-def load_config(cfg):
-    with open(cfg_FILE) as f:
-        return json.load(f)  
-        
-
-DEFAULT_cfg = dict(
-    
-    downsize = 500,
-
-    preprocess_images = dict(
-        blur_sigma = 2,
-        # equalize = True, # same speed, same results?
-        equalize = False,
-        normalize = False, # same speed, same results?
-        # normalize = False, 
-        # edge = True,  # faster
-        edge = False,  # better results? 
-        edge_sigma = 2,   
-        edge_low_threshold = 0.05,
-        edge_high_threshold = 0.1,
-        ),
-
-
-    extract_features = dict(
-        method='HARRIS',  
-        # method='ORB', 
-        min_distance = 1,
-        threshold_rel = 1e-7,
-        patch_size=59,
-        ),
-
-    ransac = dict(
-        residual_threshold = 10,   # higher - more good matches will be found, longer time?
-        min_samples = 5,
-        max_trials = 10000,
-        ),
-
-    match = dict(
-        max_distance = 200,
-        ), 
-    
-    irr_weight = .5,
-
-
-    model_robust_param_limits = [  # detect excessive transformation
-                                    [    [-10,-1,-100],
-                                          [-1,-2,-100],
-                                          [-0.1,-0.02,0]     ],
-                                     [    [10,1,100],
-                                          [1,2,100],
-                                          [0.1,0.02,2]    ]    
-                                     ]
-    )
-
-cfg_FILE = Path(__file__).with_suffix(".json")
-
-
-# cfg = load_config(cfg_FILE) if cfg_FILE.is_file() else DEFAULT_cfg
-# print(cfg)
-
 from config import CFG    
     
+
+
 # TIMEIT DECORATOR ----------------------------------------
 
 def decorator(d):
@@ -316,6 +250,7 @@ def warp_images(vis, irr, cfg, show=False, **kw):
 
     if show:
         show_matches(images_gray, keypoints, matches, 'all matches')
+        print(f"All matches: {len(matches)}")
         logging.debug(keypoints)
         logging.debug(matches)
 
@@ -330,6 +265,7 @@ def warp_images(vis, irr, cfg, show=False, **kw):
        
     if show:
         show_matches(images_gray, keypoints, matches[inliers], 'good matches')
+        print(f"Good matches: {len(matches[inliers])}")
         
     logging.debug(f'model robust parameters: {model_robust.params}')
     
