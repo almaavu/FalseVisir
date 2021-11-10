@@ -109,10 +109,10 @@ DEFAULT_cfg = dict(
 cfg_FILE = Path(__file__).with_suffix(".json")
 
 
-cfg = load_config(cfg_FILE) if cfg_FILE.is_file() else DEFAULT_cfg
-print(cfg)
+# cfg = load_config(cfg_FILE) if cfg_FILE.is_file() else DEFAULT_cfg
+# print(cfg)
 
-    
+from config import CFG    
     
 # TIMEIT DECORATOR ----------------------------------------
 
@@ -463,6 +463,6 @@ if __name__ == '__main__':
     im_paths = [Path(fp) for fp in im_paths]
     vi_path, ir_path = im_paths
 
-    process_pair(vi_path, ir_path, show=True, save=True, cfg=cfg)
+    process_pair(vi_path, ir_path, show=True, save=True, cfg=CFG)
 
     logging.debug(f'Script finished in {time.time() - start:.1f} s')
