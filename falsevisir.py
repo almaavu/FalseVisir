@@ -225,7 +225,7 @@ def preprocess_images(images, blur_sigma=None, normalize=None, equalize=None, ed
         
     
     
-def warp_images(vis, irr, cfg, show=False, **kw):
+def warp_images(vis, irr, show=False, **kw):
     '''Warp images.'''
     logging.info('Warp images...')
     assert vis.ndim == 3 # RGB
@@ -235,17 +235,17 @@ def warp_images(vis, irr, cfg, show=False, **kw):
     images = vis, irr
 
     orig_height = images[0].shape[0]
-    images_small = resize_images(images, new_height=cfg['downsize'])
-    downsize_scale = cfg['downsize'] / orig_height
+    images_small = resize_images(images, new_height=CFG['downsize'])
+    downsize_scale = CFG['downsize'] / orig_height
     logging.debug('preprocess images...')
-    images_gray = preprocess_images(images_small, show=show, **cfg['preprocess_images'])
+    images_gray = preprocess_images(images_small, show=show, **CFG['preprocess_images'])
 
     logging.debug('find_keypoints...')
-    keypoints, descriptors = extract(images_gray, **cfg['extract_features'])
+    keypoints, descriptors = extract(images_gray, **CFG['extract_features'])
     logging.debug(f'{len(keypoints[0]), len(keypoints[1])}')
 
     logging.info('Find_matches...')
-    matches = feature.match_descriptors(*descriptors, cross_check=True, **cfg['match'])  # slow
+    matches = feature.match_descriptors(*descriptors, cross_check=True, **CFG['match'])  # slow
     logging.debug(f'found: {len(matches)} matches')
 
     if show:
@@ -260,7 +260,7 @@ def warp_images(vis, irr, cfg, show=False, **kw):
 
     model_robust, inliers = sk.measure.ransac(
             (src_keys, dst_keys),
-            transform.ProjectiveTransform, **cfg['ransac'])
+            transform.ProjectiveTransform, **CFG['ransac'])
 
        
     if show:
@@ -269,7 +269,7 @@ def warp_images(vis, irr, cfg, show=False, **kw):
         
     logging.debug(f'model robust parameters: {model_robust.params}')
     
-    if not transformation_valid(model_robust, cfg['model_robust_param_limits']):
+    if not transformation_valid(model_robust, CFG['model_robust_param_limits']):
         raise ValueError('Transformation failed, not enough similar features?')    
 #    logging.debug(model_robust)
 
@@ -340,7 +340,7 @@ def extract(images, method='HARRIS', min_distance = 1, threshold_rel = 1e-7, pat
 
 
 
-def process_pair(vi_path, ir_path, cfg, show=True, save=True, dst_dir=None):
+def process_pair(vi_path, ir_path, show=True, save=True, dst_dir=None):
     
    #%% Load images
 
@@ -350,7 +350,7 @@ def process_pair(vi_path, ir_path, cfg, show=True, save=True, dst_dir=None):
     vi_image, ir_image = resize_images((vi_image, ir_image))
 
     #   %% Warp images
-    vi_image, ir_image = warp_images(vi_image, ir_image, cfg=cfg, show=False)
+    vi_image, ir_image = warp_images(vi_image, ir_image, show=False)
     info(ir_image, 'ir_image')
 
     #%% Blend images
@@ -399,6 +399,6 @@ if __name__ == '__main__':
     im_paths = [Path(fp) for fp in im_paths]
     vi_path, ir_path = im_paths
 
-    process_pair(vi_path, ir_path, show=True, save=True, cfg=CFG)
+    process_pair(vi_path, ir_path, show=True, save=True)
 
     logging.debug(f'Script finished in {time.time() - start:.1f} s')
