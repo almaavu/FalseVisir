@@ -377,9 +377,10 @@ def process_pair(vi_path, ir_path, show=True, save=True, dst_dir=None):
 
         # Blended images
         save_image(dst_dir / f'{ir_path.stem}_{vi_path.stem}_blend.png', blend_im)
-        save_image(dst_dir / f'{ir_path.stem}_{vi_path.stem}_falsecolor.png', false_im)
+        false_image_path = dst_dir / f'{ir_path.stem}_{vi_path.stem}_falsecolor.png'
+        save_image(dst_dir / false_image_path, false_im)
 
-
+    return false_image_path
 
 #%% Main program =============================================================================================
 
