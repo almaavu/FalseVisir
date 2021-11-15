@@ -342,6 +342,9 @@ def extract(images, method='HARRIS', min_distance = 1, threshold_rel = 1e-7, pat
 
 def process_pair(vi_path, ir_path, show=True, save=True, dst_dir=None):
     
+    vi_path = Path(vi_path)
+    ir_path = Path(ir_path)
+    
    #%% Load images
 
     vi_image, ir_image = [load_image(fp) for fp in (vi_path, ir_path)]
