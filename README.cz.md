@@ -95,11 +95,11 @@ https://cs.wikipedia.org/wiki/GNU_General_Public_License
 
 Program lze spustit z příkazového řádku se zadáním cesty ke vstupním souborům - obrázku ve viditelném a infračerveném světle.
 
-    python -m falsevisir "vis_soubor.jpg" "ir_soubor.jpg"  
+    python -m falsevisir -v "vis_soubor.jpg" -i "ir_soubor.jpg"    
     
 Skript je možné spustit i bez instalace:
 
-    python falsevisir.py "vis_soubor.jpg" "ir_soubor.jpg" 
+    python falsevisir.py -v "vis_soubor.jpg" -i "ir_soubor.jpg" pg" 
     
   
 

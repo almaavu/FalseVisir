@@ -104,11 +104,11 @@ file paths of visible light image (RGB) and infrared image (RGB or grey)
 
 ## Usage:
 
-    python -m falsevisir "vis_soubor.jpg" "ir_soubor.jpg"  
+    python -m falsevisir -v "vis_soubor.jpg" -i "ir_soubor.jpg"  
     
 Without installation:
 
-    python falsevisir.py "vis_soubor.jpg" "ir_soubor.jpg" 
+    python falsevisir.py -v "vis_soubor.jpg" -i "ir_soubor.jpg" 
 
 In Jupyter notebook:
 
