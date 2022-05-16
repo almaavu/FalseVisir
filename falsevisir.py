@@ -43,7 +43,7 @@ from skimage import img_as_float, img_as_ubyte
 from skimage.color import rgb2gray
 from skimage import transform, exposure, feature
 from scipy.ndimage.filters import gaussian_filter
-
+import cv2
 from config import CFG    
     
 
@@ -74,7 +74,7 @@ def timeit(f):
 def load_image(fpath):
     '''Load image from file to float numpy array.'''
     logging.info(f'Load image {fpath}')
-    return img_as_float(imread(fpath))
+    return img_as_float(imread(str(fpath)))
 
 def save_image(fpath, im):
     '''Save numpy array as 8bit image.'''
@@ -87,6 +87,9 @@ def show_images(images, labels=None, **kw):
     labels : list
     '''
     logging.info(f'show images... {labels}')
+    if type(images) not in (list, tuple):
+        images = [images]
+        labels = [labels]
     f, axes = plt.subplots(1, len(images), **kw)
     axes = np.array(axes, ndmin=1)
 
@@ -169,17 +172,51 @@ def warp_image(images, model_robust):
 
     return warp_0, warp_1
 
-def resize_images(images, new_height=None, **kw):
+def resize_images(images, new_height=None, method="scipy", **kw):
     '''Resize images to same height.'''
     
     logging.info(f'Resize images...')
     heights = [im.shape[0] for im in images]
     new_height = new_height or min(heights)
     logging.debug(f'image heights {heights} \t  new height {new_height}')
-    images1 = [transform.resize(im, (new_height, im.shape[1]*new_height//im.shape[0])) for im in images]
+    # images1 = [transform.resize(im, (new_height, im.shape[1]*new_height//im.shape[0])) for im in images]
+    images1 = []
+    
+    for im in images:
+        newshape = np.array((new_height, im.shape[1] * new_height // im.shape[0]))
+        im = fast_downscale(im, newshape*2)  # fast resize to cca double of target size 
+        
+        logging.info(f"resize image {im.shape} -> {newshape}")
+        # 
+        if method == "scipy":
+            
+            images1.append(transform.resize(im, newshape))
+        else:    
+            images1.append(cv2.resize(im, dsize=newshape),interpolation=cv2.INTER_AREA)
     return images1
 
 
+def fast_downscale(im, newsize):
+    '''Fast resize numpy array by slicing as much as possible to target size. 
+    Returned array size >= newsize'''
+    from math import floor
+    old = np.array(im.shape[:2])
+    new = newsize
+    r = floor(min(old / new))
+    if r < 2:
+        return im
+    else:    
+        logging.info(f"fast downscale {im.shape} by slicing: {r}")
+        im2 = im[::r,::r,...]
+        return im2
+        
+# def test_fast_downscale():
+    # im = np.arange(1,101).reshape((10,10))
+    # newsize = (6,5)
+    # print(fast_downscale(im, newsize))
+    
+    
+    
 def transformation_valid(model_robust, valid_params):
     '''Check if transformation was found and is withing allowed bounds (prevent excessive deformation).'''
     
@@ -196,7 +233,7 @@ def preprocess_images(images, blur_sigma=None, normalize=None, equalize=None, ed
     
     # TO GRAY 
     # images_gray = [rgb2gray(im) if im.ndim > 2 else im for im in images]
-    images_gray = [im[:,:,0] if im.ndim > 2 else im for im in images] # use red channel - most similar to IRR
+    images_gray = [im[:,:,0] if im.ndim > 2 else im for im in images] # from VIS image use red channel to match features  - most similar to IRR
     
     # SMOOTH
     if blur_sigma:
@@ -235,6 +272,7 @@ def warp_images(vis, irr, show=False, **kw):
     images = vis, irr
 
     orig_height = images[0].shape[0]
+    print("...warping... downsize to:", CFG['downsize'])
     images_small = resize_images(images, new_height=CFG['downsize'])
     downsize_scale = CFG['downsize'] / orig_height
     logging.debug('preprocess images...')
@@ -340,54 +378,80 @@ def extract(images, method='HARRIS', min_distance = 1, threshold_rel = 1e-7, pat
 
 
 
-def process_pair(vi_path, ir_path, show=True, save=True, dst_dir=None):
-    
+def process_pair(vi_path, ir_path, show=True, save=True, dst_dir=None, overwrite=False):
+    logging.info(f"process pair {vi_path} {ir_path}")
     vi_path = Path(vi_path)
     ir_path = Path(ir_path)
+    ds = CFG["downsize"]
+    dst_dir = dst_dir or vi_path.parent.parent / f'false_color_results_{ds}'
     
-   #%% Load images
-
+    irfc_out = dst_dir / f'{ir_path.stem}_{vi_path.stem}_falsecolor.png'
+    blend_out = dst_dir / f'{ir_path.stem}_{vi_path.stem}_blend.png'
+    vi_out = dst_dir / f'{ir_path.stem}_{vi_path.stem}_vi_warp.png'
+    ir_out = dst_dir / f'{ir_path.stem}_{vi_path.stem}_ir_warp.png'
+    
+    if irfc_out.is_file() and not overwrite:  # skip if already done
+        print(f"destination file exists, exit: {irfc_out}")
+        return
+    
+    # Load images
     vi_image, ir_image = [load_image(fp) for fp in (vi_path, ir_path)]
 
-    #%% Resize to same height
+    # Resize to same height
     vi_image, ir_image = resize_images((vi_image, ir_image))
 
-    #   %% Warp images
+    # Warp images
     vi_image, ir_image = warp_images(vi_image, ir_image, show=False)
     info(ir_image, 'ir_image')
 
-    #%% Blend images
+    # Blend images
     blend_im = blend_image(vi_image, ir_image, weight=.5)
     info(blend_im, 'blend_im')
 
-    #%% False color image
+    # False color image
     false_im = false_image(vi_image, ir_image)
     info(false_im, 'false_im')
 
-    #%% Show results
+    # Show results
     if show:
         show_images((vi_image, ir_image, blend_im, false_im), labels=('VIS', 'IR', 'BLEND', 'FALSE_COLOR'))
 
-    #%% Save results
+    # Save results
     if save:
-        if not dst_dir:
-            dst_dir = vi_path.parent.parent / 'false_color_results'
+           
         dst_dir.mkdir(exist_ok=True)
 
-        # Warped images
-        save_image(dst_dir / f'{ir_path.stem}_{vi_path.stem}_vi_warp.png', vi_image)
-        save_image(dst_dir / f'{ir_path.stem}_{vi_path.stem}_ir_warp.png', ir_image)
+        save_image(irfc_out, false_im)
+        save_image(ir_out, ir_image)
+        save_image(vi_out, vi_image)
+        save_image(blend_out, blend_im)
 
-        # Blended images
-        save_image(dst_dir / f'{ir_path.stem}_{vi_path.stem}_blend.png', blend_im)
-        false_image_path = dst_dir / f'{ir_path.stem}_{vi_path.stem}_falsecolor.png'
-        save_image(dst_dir / false_image_path, false_im)
+    return vi_image, ir_image, blend_im, false_im
 
-    return false_image_path
+
+def parse_args():
+
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-d", "--downsize", type=int, default=500,
+                    help="downsize image to speedup processing")
+    parser.add_argument("-i", "--ir-image", type=str,
+                    help="path of ir image")
+    parser.add_argument("-v", "--vis-image", type=str,
+                    help="path of vis image")
+
+    args = parser.parse_args()
+    # args_dict = vars(args)
+
+    return args
+
+
 
 #%% Main program =============================================================================================
 
 if __name__ == '__main__':
+    
 
     # LOGLEVEL = logging.DEBUG
     LOGLEVEL = logging.INFO
@@ -399,10 +463,15 @@ if __name__ == '__main__':
     logging.debug(f'Script started...')
     start = time.time()
     
-    im_paths = sys.argv[1:3] if len(sys.argv) == 3 else SAMPLES
-    im_paths = [Path(fp) for fp in im_paths]
+    
+    args = parse_args()
+    print(args)
+    CFG["downsize"] = args.downsize
+    
+    im_paths = (args.vis_image, args.ir_image) if (args.ir_image and args.vis_image) else SAMPLES
+    im_paths = [Path(fp).resolve() for fp in im_paths]
     vi_path, ir_path = im_paths
-
+    print(vi_path, ir_path)
     process_pair(vi_path, ir_path, show=True, save=True)
 
     logging.debug(f'Script finished in {time.time() - start:.1f} s')
