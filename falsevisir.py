@@ -195,7 +195,22 @@ def resize_images(images, new_height=None, method="scipy", **kw):
             images1.append(cv2.resize(im, dsize=newshape),interpolation=cv2.INTER_AREA)
     return images1
 
-
+def resize_images_to_same_size(images):
+    
+    shapes = np.array([im.shape[:2] for im in images])
+    new_shape = np.min(shapes, axis=0)
+    # print(shapes, new_shape)
+    images = [fast_downscale(im, new_shape * 2) for im in images] 
+    resized = [transform.resize(im, new_shape) for im in images]
+    return resized
+    
+# def test_resize_images_to_same_size():
+    # fps =  ("/home/m/Y/APOLLO/2022/J1828/a393_J1828__TF_90.png","/home/m/Y/APOLLO/2022/J1828/J1828 3200.png")
+    # images = [imread(fp) for fp in fps]   
+    # images = resize_images_to_same_size(images)
+    # for im, fp in zip(images, fps):
+        # imwrite(fp + "_2.png", im)
+        
 def fast_downscale(im, newsize):
     '''Fast resize numpy array by slicing as much as possible to target size. 
     Returned array size >= newsize'''
@@ -378,12 +393,12 @@ def extract(images, method='HARRIS', min_distance = 1, threshold_rel = 1e-7, pat
 
 
 
-def process_pair(vi_path, ir_path, show=True, save=True, dst_dir=None, overwrite=False):
+def process_pair(vi_path, ir_path, show=True, save=True, dst_dir=None, overwrite=False, warp=True):
     logging.info(f"process pair {vi_path} {ir_path}")
     vi_path = Path(vi_path)
     ir_path = Path(ir_path)
     ds = CFG["downsize"]
-    dst_dir = dst_dir or vi_path.parent.parent / f'false_color_results_{ds}'
+    dst_dir = dst_dir or ir_path.parent / f'false_color_results_{ds}'
     
     irfc_out = dst_dir / f'{ir_path.stem}_{vi_path.stem}_falsecolor.png'
     blend_out = dst_dir / f'{ir_path.stem}_{vi_path.stem}_blend.png'
@@ -397,11 +412,16 @@ def process_pair(vi_path, ir_path, show=True, save=True, dst_dir=None, overwrite
     # Load images
     vi_image, ir_image = [load_image(fp) for fp in (vi_path, ir_path)]
 
-    # Resize to same height
-    vi_image, ir_image = resize_images((vi_image, ir_image))
 
-    # Warp images
-    vi_image, ir_image = warp_images(vi_image, ir_image, show=False)
+    if warp:
+        # Resize to same height
+        vi_image, ir_image = resize_images((vi_image, ir_image))
+        # Warp images
+        vi_image, ir_image = warp_images(vi_image, ir_image, show=False)
+    else:
+        vi_image, ir_image = resize_images_to_same_size((vi_image, ir_image))
+        
+        
     info(ir_image, 'ir_image')
 
     # Blend images
@@ -440,6 +460,8 @@ def parse_args():
                     help="path of ir image")
     parser.add_argument("-v", "--vis-image", type=str,
                     help="path of vis image")
+    parser.add_argument("-n", "--no-warp", action='store_true',
+                    help="only resize images, no warping (use when warping fails)")
 
     args = parser.parse_args()
     # args_dict = vars(args)
@@ -462,8 +484,7 @@ if __name__ == '__main__':
     logging.getLogger('matplotlib.font_manager').disabled = True
     logging.debug(f'Script started...')
     start = time.time()
-    
-    
+
     args = parse_args()
     print(args)
     CFG["downsize"] = args.downsize
@@ -472,6 +493,7 @@ if __name__ == '__main__':
     im_paths = [Path(fp).resolve() for fp in im_paths]
     vi_path, ir_path = im_paths
     print(vi_path, ir_path)
-    process_pair(vi_path, ir_path, show=True, save=True)
+    warp = not args.no_warp
+    process_pair(vi_path, ir_path, show=True, save=True, warp=warp)
 
     logging.debug(f'Script finished in {time.time() - start:.1f} s')

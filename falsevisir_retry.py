@@ -45,7 +45,7 @@ if __name__ == '__main__':
     logging.debug(f'Script started...')
     start = time.time()
     
-    downsizes = list(range(300,800,50))
+    downsizes = list(range(750,1000,50))
     print(downsizes)
     
     args = parse_args()
@@ -59,6 +59,9 @@ if __name__ == '__main__':
     
     for downsize in downsizes:    
         CFG["downsize"] = downsize
-        process_pair(vi_path, ir_path, show=False, save=True)
+        try:
+            process_pair(vi_path, ir_path, show=False, save=True)
+        except ValueError as e:
+            print(e)    
 
     logging.debug(f'Script finished in {time.time() - start:.1f} s')

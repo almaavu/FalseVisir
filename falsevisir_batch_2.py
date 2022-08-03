@@ -21,7 +21,7 @@ def main():
     CFG["downsize"] = 600
     
 
-    INDIRS  =  "/home/m/Y/SKENY/VIS/", "/home/m/Y/APOLLO/2022/"
+    INDIRS  =  "/home/m/Y/SKENY/VIS/", "/home/m/Y/APOLLO/2020/"
 
 
     LOGLEVEL = logging.INFO
@@ -53,9 +53,9 @@ def main():
             vi_path = vis_files[file_id][-1]
             print(f"'{ir_path}', '{vi_path}'")   
             try:
-                process_pair(vi_path, ir_path, show=False, save=True, dst_dir=ir_path.parent / "false_color_results")
+                process_pair(vi_path, ir_path, show=False, save=True, dst_dir=ir_path.parent / f"{file_id.upper()}_false_color")
             except Exception as e:
-                raise(e)
+                # raise(e)
                 print(f"... FAILED: {file_id} \n{e}")
 
     print(f"{Path(__file__).resolve()} finished")
